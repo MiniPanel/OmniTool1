@@ -1,0 +1,603 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TROUBLESHOOTING STEPS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: pink;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .button-62 {
+            background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+            border: 0;
+            border-radius: 12px;
+            color: #FFFFFF;
+            cursor: pointer;
+            display: inline-block;
+            font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial,
+                sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 2.5;
+            outline: transparent;
+            padding: 0 1rem;
+            text-align: center;
+            text-decoration: none;
+            transition: box-shadow 0.2s ease-in-out;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            white-space: nowrap;
+            margin: 10px;
+            width: 320px;
+            box-sizing: border-box;
+        }
+
+        .button-62:not([disabled]):focus,
+        .button-62:not([disabled]):hover {
+            box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+                -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
+                0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
+        }
+
+        .substeps {
+            display: none;
+            text-align: left;
+            margin: 10px auto 20px;
+            max-width: 600px;
+            background: #f7f1f1;
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        .substep {
+            background: #FF9A5A;
+            color: white;
+            padding: 10px 15px;
+            margin: 8px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .substep:hover {
+            background: #EF4765;
+        }
+
+        h1 {
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+<html lang="en">
+<head>
+  </style>
+</
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home Icon Redirect</title>
+  <style>
+    .home-logo {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .home-logo:hover {
+      box-shadow: 0 0 10px 3px orange; /* Light orange glow on hover */
+    }
+  </style>
+</head>
+<body>
+
+     <h1>TROUBLESHOOTING STEPS</h1>
+
+  <button class="button-62" onclick="copyToClipboard(`Please try Power Drain:
+
+This would discharge if any static electricity is trapped inside the system,
+which may cause the unit not to function properly.
+
+Could you please follow the below mentioned steps:
+
+1. Shut down the unit.
+2. Disconnect all the external devices (including the power adapter).
+3. Press and hold the Power button for approximately 15-20 seconds.
+
+After 2-3 minutes, Power on the unit and check.
+
+Please try the above step`)">
+    1. Power Drain
+</button>
+
+
+    <button class="button-62"
+    onclick="copyToClipboard('Please try BIOS recovery:\n\n1. Switch off the system. (Make sure that the unit is plugged in to the AC adaptor.)\n\n2. Press and hold the Windows + B keys, and then simultaneously press the power button.\n\n3. After 2 to 3 seconds, continue to press and hold the Windows + B keys, but release the power button.\n\nYou might hear a series of beeps.\n\nPlease try the above step.')">
+    2. BIOS Recovery
+</button>
+
+
+    <button class="button-62"
+        onclick="copyToClipboard(`Please try CMOS reset:
+
+1. Switch off the system.
+2. Press and hold the Windows + V keys, and then simultaneously press and hold the power button.
+3. When the CMOS Reset screen displays or you hear beeping sounds, release the Windows + V keys.
+4. Press enter to restart the computer.
+
+Please try the above step exactly as mentioned!`)">
+        3. CMOS Reset
+    </button>
+
+    <button class="button-62"
+        onclick="copyToClipboard(`Please try to find the Serial number & Product number:
+
+Some products utilize the keyboard shortcut ‘Fn + Esc’; the product information will appear after a short delay.
+
+If that doesn’t work, this information can also be found on your barcode stickers, which may be located behind the battery.
+
+Here is a reference video https://www.youtube.com/watch?v=_N8BfdCvMRg
+and the link https://support.hp.com/in-en/document/ish_2039298-1862169-16`)">
+        4. Find Serial Number
+    </button>
+
+    <button class="button-62"
+        onclick="copyToClipboard(`Please follow these steps to boot into BIOS:
+
+Step 1: Unit should be in shutdown state.
+Step 2: Press the power button and press the 'esc' key repeatedly.
+Step 3: Once you are in the Boot menu, press F10 to enter BIOS.`)">
+        5. Boot into BIOS
+    </button>
+
+    <button class="button-62" onclick="toggleDropdown('uefiComponent')">6. UEFI COMPONENT</button>
+    <div id="uefiComponent" class="substeps">
+        <div class="substep"
+            onclick="copyToClipboard(`Please follow these steps for System Board:
+
+Step 1: Unit should be in shutdown state.
+Step 2: Press the power button and press the 'esc' key repeatedly.
+Step 3: Once you are in the Boot menu, Press F2 to enter UEFI.
+Step 4: Select COMPONENT TEST and select system board.
+Step 5: Select and quick test.
+
+Please follow the above steps. Once completed, please share an image of the test result.`)">
+            6.1 System Board</div>
+        <div class="substep"
+            onclick="copyToClipboard(`Please follow these steps for Wireless Module:
+
+Step 1: Unit should be in shutdown state.
+Step 2: Press the power button and press the 'esc' key repeatedly.
+Step 3: Once you are in the Boot menu, Press F2 to enter UEFI.
+Step 4: Select COMPONENT TEST and select wireless module.
+Step 5: Select and quick test.
+
+Please follow the above steps. Once completed, please share an image of the test result.`)">
+            6.2 Wireless Module</div>
+        <div class="substep"
+            onclick="copyToClipboard(`Please follow these steps for Battery:
+
+Step 1: Unit should be in shutdown state.
+Step 2: Press the power button and press the 'esc' key repeatedly.
+Step 3: Once you are in the Boot menu, Press F2 to enter UEFI.
+Step 4: Select COMPONENT TEST and select power and choose battery.
+Step 5: Select and quick test.
+
+Please follow the above steps. Once completed, please share an image of the test result.5`)">
+            6.3 Battery</div>
+        <div class="substep"
+            onclick="copyToClipboard(`Please follow these steps for Adapter:
+
+Step 1: Unit should be in shutdown state.
+Step 2: Press the power button and press the 'esc' key repeatedly.
+Step 3: Once you are in the Boot menu, Press F2 to enter UEFI.
+Step 4: Select COMPONENT TEST and select power and choose Adapter.
+Step 5: Select and quick test.
+
+Please follow the above steps. Once completed, please share an image of the test result.`)">
+            6.4 Adapter</div>
+        <div class="substep"
+            onclick="copyToClipboard(`Please follow these steps for Speaker:
+
+Step 1: Unit should be in shutdown state.
+Step 2: Press the power button and press the 'esc' key repeatedly.
+Step 3: Once you are in the Boot menu, Press F2 to enter UEFI.
+Step 4: Select COMPONENT TEST and select Audio.
+Step 5: Select and quick test.
+
+Please follow the above steps. Once completed, please share an image of the test result.`)">
+            6.5 Speaker</div>
+        <div class="substep"
+            onclick="copyToClipboard(`Please follow these steps for Microphone:
+
+Step 1: Unit should be in shutdown state.
+Step 2: Press the power button and press the 'esc' key repeatedly.
+Step 3: Once you are in the Boot menu, Press F2 to enter UEFI.
+Step 4: Select COMPONENT TEST and select microphone.
+Step 5: Select and quick test.
+
+Please follow the above steps. Once completed, please share an image of the test result.`)">
+            6.6 Microphone</div>
+        <div class="substep"
+            onclick="copyToClipboard(`Please follow these steps for Touchpad:
+
+Step 1: Unit should be in shutdown state.
+Step 2: Press the power button and press the 'esc' key repeatedly.
+Step 3: Once you are in the Boot menu, Press F2 to enter UEFI.
+Step 4: Select COMPONENT TEST and select touchpad.
+Step 5: Select and quick test.
+
+Please follow the above steps. Once completed, please share an image of the test result.`)">
+            6.7 Touchpad</div>
+        <div class="substep"
+            onclick="copyToClipboard(`Please follow these steps for Keyboard:
+
+Step 1: Unit should be in shutdown state.
+Step 2: Press the power button and press the 'esc' key repeatedly.
+Step 3: Once you are in the Boot menu, Press F2 to enter UEFI.
+Step 4: Select COMPONENT TEST and select keyboard.
+Step 5: Select and quick test.
+
+Please follow the above steps. Once completed, please share an image of the test result.`)">
+            6.8 Keyboard</div>
+        <div class="substep"
+            onclick="copyToClipboard(`Please follow these steps for SSD/HDD:
+
+Step 1: Unit should be in shutdown state.
+Step 2: Press the power button and press the 'esc' key repeatedly.
+Step 3: Once you are in the Boot menu, Press F2 to enter UEFI.
+Step 4: Select COMPONENT TEST and select storage and select SSD.
+Step 5: Select and quick test.
+
+Please follow the above steps. Once completed, please share an image of the test result.`)">
+            6.9 SSD/HDD</div>
+        <div class="substep"
+            onclick="copyToClipboard(`Please follow these steps for Port:
+
+Step 1: Unit should be in shutdown state.
+Step 2: Press the power button and press the 'esc' key repeatedly.
+Step 3: Once you are in the Boot menu, Press F2 to enter UEFI.
+Step 4: Select COMPONENT TEST and select PORT.
+Step 5: Select and quick test.
+
+Please follow the above steps. Once completed, please share an image of the test result.`)">
+            6.10 Port</div>
+        <div class="substep"
+            onclick="copyToClipboard(`Please follow these steps for Webcam:
+
+Step 1: Unit should be in shutdown state.
+Step 2: Press the power button and press the 'esc' key repeatedly.
+Step 3: Once you are in the Boot menu, Press F2 to enter UEFI.
+Step 4: Select COMPONENT TEST and select webcam.
+Step 5: Select and quick test.
+
+Please follow the above steps. Once completed, please share an image of the test result.`)">
+            6.11 Webcam</div>
+        <div class="substep"
+            onclick="copyToClipboard(`Please follow these steps for Fan:
+
+Step 1: Unit should be in shutdown state.
+Step 2: Press the power button and press the 'esc' key repeatedly.
+Step 3: Once you are in the Boot menu, Press F2 to enter UEFI.
+Step 4: Select COMPONENT TEST and select Fan.
+Step 5: Select and quick test.
+
+Please follow the above steps. Once completed, please share an image of the test result.`)">
+            6.12 Fan</div>
+        <div class="substep"
+ onclick="copyToClipboard(`Please follow these steps for FingerPrint Module
+
+Step 1: Unit should be in shutdown state.
+Step 2: Press the power button and press the 'esc' key repeatedly.
+Step 3: Once you are in the Boot menu, Press F2 to enter UEFI.
+Step 4: Select COMPONENT TEST and select FIngerprint.
+Step 5: Select and quick test.
+
+Please follow the above steps. Once completed, please share an image of the test result.`)">
+            6.13 Fingerprint</div>
+    </div>
+
+    <button class="button-62" onclick="toggleDropdown('deviceManager')">7. DEVICE MANAGER</button>
+    <div id="deviceManager" class="substeps">
+       <div class="substep"
+
+     onclick="copyToClipboard(`Step 1: Open Device Manager.
+Step 2: Expand the 'Batteries' category.
+Step 3: Right-click on each device listed under Batteries (typically 'Microsoft AC Adapter' and 'Microsoft ACPI-Compliant Control Method Battery').
+Step 4: Select 'Uninstall device' from the context menu.
+Step 5: After uninstalling both drivers, restart your PC.`)">
+    7.1 Batteries
+</div>
+
+        <div class="substep"
+            onclick="copyToClipboard(`Step 1: Open Device Manager.
+Step 2: In the Device Manager window, expand the Audio inputs and outputs category.
+Step 3: Right-click on Speaker listed under Audio inputs and outputs.
+Step 4: Select Uninstall device from the context menu.
+Step 5: After uninstalling the driver, restart your PC.
+Step 6: Check if the Speaker is working properly after the restart.`)">
+            7.2 Speaker</div>
+
+        <div class="substep"
+            onclick="copyToClipboard(`Step 1: Open Device Manager.
+Step 2: In the Device Manager window, expand the Audio inputs and outputs category.
+Step 3: Right-click on Microphone listed under Audio inputs and outputs.
+Step 4: Select Uninstall device from the context menu.
+Step 5: After uninstalling the driver, restart your PC.
+Step 6: Check if the Mic is working properly after the restart.`)">
+            7.3 Microphone</div>
+
+        <div class="substep"
+     onclick="copyToClipboard(`Step 1: Open Device Manager.\nStep 2: In the Device Manager window, expand the 'Biometric devices' category.\nStep 3: Right-click on the driver listed under 'Biometric devices'.\nStep 4: Select 'Uninstall device' from the context menu.\nStep 5: After uninstalling the driver, restart your PC.\nStep 6: Check if the fingerprint sensor is working properly after the restart.`)">
+    7.4 Fingerprint
+</div>
+
+
+        <div class="substep"
+     onclick="copyToClipboard(`Step 1: Open Device Manager.\nStep 2: In the Device Manager window, expand the 'Bluetooth' category.\nStep 3: Right-click on the driver listed under 'Bluetooth'.\nStep 4: Select 'Uninstall device' from the context menu.\nStep 5: After uninstalling the driver, restart your PC.\nStep 6: Check if Bluetooth is working properly after the restart.`)">
+    7.5 Bluetooth
+</div>
+
+
+
+        <div class="substep"
+            onclick="copyToClipboard(`Step 1: Open Device Manager.
+Step 2: In the Device Manager window, expand the Camera category.
+Step 3: Right-click on the Driver listed under Camera.
+Step 4: Select Uninstall device from the context menu.
+Step 5: After uninstalling the driver, restart your PC.
+Step 6: Check if the Camera is working properly after the restart.`)">
+            7.6 Camera</div>
+
+        <div class="substep"
+            onclick="copyToClipboard(`Step 1: Open Device Manager.
+Step 2: In the Device Manager window, expand the Display adaptors category.
+Step 3: Right-click on the Driver listed under Display adaptors.
+Step 4: Select Uninstall device from the context menu.
+Step 5: After uninstalling the driver, restart your PC.
+Step 6: Check if the Display is working properly after the restart.`)">
+            7.7 Graphic Drivers - Display</div>
+        <div class="substep"
+            onclick="copyToClipboard(`Step 1: Open Device Manager.
+Step 2: In the Device Manager window, expand the Keyboards category.
+Step 3: Right-click on the Driver listed under Keyboards.
+Step 4: Select Uninstall device from the context menu.
+Step 5: After uninstalling the driver, restart your PC.
+Step 6: Check if the Keyboard is working properly after the restart.`)">
+            7.8 Keyboard</div>
+        <div class="substep"
+            onclick="copyToClipboard(`Step 1: Open Device Manager.
+Step 2: In the Device Manager window, expand the Mice and other pointing devices category.
+Step 3: Right-click on the Driver listed under Mice and other pointing devices.
+Step 4: Select Uninstall device from the context menu.
+Step 5: After uninstalling the driver, restart your PC.
+Step 6: Check if the Touchpad is working properly after the restart.`)">
+            7.9 Touchpad</div>
+        <div class="substep"
+            onclick="copyToClipboard(`Step 1: Open Device Manager.
+Step 2: In the Device Manager window, expand the Network adapters category.
+Step 3:Right-click on the first Driver listed under Network adapters.
+Step 4: Select Uninstall device from the context menu.
+Step 5: After uninstalling the driver, restart your PC.
+Step 6: Check if the Wifi is working properly after the restart.`)">
+            7.10 WI-FI</div>
+    </div>
+
+    <button class="button-62"
+        onclick="copyToClipboard(`Open HP Support Assistant:
+
+- Press Windows and type HP Support Assistant, then open the app.
+
+- Check for Updates:
+  1. On the My Dashboard tab, find your device and click Updates.
+     (if no updates are seen please select the refresh icon on the top and see for updates.)
+  2. Click Check for updates and messages.
+
+- Install Updates:
+  1. Review the available updates (drivers, BIOS, etc.).
+  2. Select the ones you need and click Install.
+
+- Restart:
+  If prompted, restart your PC to complete the installation.`)">8. HPSA updates</button>
+
+    <button class="button-62"
+        onclick="copyToClipboard(`Please perform the below steps to perform pending windows updates.
+
+* Open Settings on your computer.
+* Navigate to Update & Security.
+* Select Windows Update from the left-hand menu.
+* Click on Check for updates and install all available updates.
+* Once the updates are installed, restart your computer to complete the process.
+`)">9. Windows updates</button>
+
+  <button class="button-62" onclick="toggleDropdown('windowsReset')">10. Windows reset</button>
+    <div id="windowsReset" class="substeps">
+        <div class="substep"
+            onclick="copyToClipboard(`Please follow the below steps to reset the Windows.
+
+
+1. Type and search Reset this PC in the Windows search bar, then click Open.
+2. In the Reset this PC menu, click Reset PC.
+3. Select Keep my files.
+4. Choose Local reinstall.
+5. Click Change settings.
+6. Set the option Restore apps and settings which came with this PC to Yes, then select Confirm.
+7. Confirm that the settings are correct, then click Next.
+8. You may receive a notification; select Next to continue the reset process.
+9. Select Reset.`)">
+            10.1 Reset from Settings</div>
+        <div class="substep"
+            onclick="copyToClipboard(`Please use the below steps to reset the windows from BIOS.
+
+1. Shutdown the computer
+2. Press the power button once again and immediately tap ESC key multiple times. Thereafter you will see the Start-up Options, press F11
+3. On the Choose an option screen, click Troubleshoot.
+4. Select Reset PC.
+5. Select Remove everything.
+6. Select Local reinstall.
+7. Then select Next.
+8. Click on Reset to start the process.`)">
+            10.2 Reset from BIOS</div>
+    </div>
+
+    <button class="button-62" onclick="toggleDropdown('osReinstallation')">11. OS Re-installation</button>
+    <div id="osReinstallation" class="substeps">
+        <div class="substep"
+            onclick="copyToClipboard(`Requirements:
+
+- 16 GB pen drive.
+- Working computer.
+- Backup your data before proceeding.`)">
+            11.1 Requirements for Media creation tool.</div>
+        <div class="substep"
+     onclick="copyToClipboard(`Steps to reinstall Windows using the Microsoft Media Creation Tool should be performed on another working computer.
+
+Please find the link for the Microsoft Creation Tool:
+https://www.microsoft.com/en-in/software-download/windows10
+
+Follow the instructions under the section 'Using the tool to create installation media'.
+
+1. Open the above link.
+2. Select 'Download tool now', and then select 'Run'. You must be an administrator to run this tool.
+3. If you agree to the license terms, select 'Accept'.
+4. On the 'What do you want to do?' page, select 'Create installation media for another PC', then click 'Next'.
+5. Select the latest available Windows version.
+6. Choose the media you want to use:
+   - USB flash drive: Attach a blank USB flash drive with at least 8 GB of space. Any content on the drive will be deleted.
+7. After the installation media is created, follow the on-screen instructions to complete the process.
+
+Please let me know once the above steps are completed.`)"
+>
+    11.2 Media Creation Tool- 1
+</div>
+
+<div class="substep"
+     onclick="copyToClipboard(`Now take the flash drive/pen drive/hard disk and plug it into the computer where you want to reinstall the OS. Then follow the steps below:
+
+1. Insert the USB boot device you created, and then turn off the computer.
+2. Turn on the computer and immediately press the Esc key repeatedly (about once every second) until the Startup Menu opens.
+3. Press the F9 key to open Boot Device Options.
+4. Use the arrow keys to select the USB drive, and then press Enter.
+5. When prompted to run Recovery Manager from the hard drive or from media, select 'Run program from media', and click Next.
+6. Select a language, and then click OK.
+7. Select 'Factory Reset', and then click Next.
+8. On the Welcome screen, click Next.
+9. Select 'Recover without backing up your files', and then click Next.
+10. Wait while HP Recovery Manager prepares the system and copies the files to the hard drive.
+11. Click Skip when asked if you received a supplemental recovery USB drive from HP Support.
+12. Click Continue once recovery preparation is complete.
+13. Do not remove the USB drive or power off the PC during the process. The system may go through several screens including black screens, HP logo, and Windows setup—this is normal.
+14. After recovery is complete, click Finish to restart the system.
+15. You can remove the USB flash drive once the initial setup begins.
+`)"
+>
+    11.3 Media Creation Tool- 2
+</div>
+</div>
+
+<button class="button-62" onclick="toggleDropdown('osReinstallation1')">12. Cloud Recovery</button>
+    <div id="osReinstallation1" class="substeps">
+        <div class="substep"
+            onclick="copyToClipboard(`Please ensure to take a data backup  with the help of any known local data backup service centers before we proceed with OS re-installation as HP does not support in that field due to privacy
+ 
+For Consumer PC: Kindly follow the steps as per below link
+https://support.hp.com/us-en/document/ish_4511095-4511141-16 `)">
+            12.1 CONSUMER</div>
+        <div class="substep"
+     onclick="copyToClipboard(`Please ensure to take a data backup  with the help of any known local data backup service centers before we proceed with OS re-installation as HP does not support in that field due to privacy
+For Commercial PC: Kindly follow the steps as per below link
+https://support.hp.com/us-en/document/ish_4374279-4216685-16`)"
+>
+    12.2 COMMERCIAL
+</div>
+</div>
+    <button class="button-62"
+        onclick="copyToClipboard(`Battery calibration:\nRefer to https://www.youtube.com/watch?v=OBJxM5HQFs0 for steps.`)">13. Battery calibration</button>
+
+    <button class="button-62"
+        onclick="copyToClipboard(`Steps to extract IDR logs:\nDownload from https://ftp.hp.com/pub/idr/ImageDiags4/ImageDiags.exe`)">14. IDR LOGS</button>
+
+    <button class="button-62"
+        onclick="copyToClipboard(`HP support website:-
+
+Step 1:- Open https://support.hp.com/gb-en
+Step 2:- Scroll a bit down to see a search bar to enter the serial no
+step 3:- select software drivers
+Step 4:- Enter your device serial no and hit enter
+
+If you are asked to select OS and version
+Search for winver in windows search bar
+and you will get pop up with the details and enter the same
+
+step 5:- select the option software & drivers and select xxx and select xxx
+Step 6:- download the version for your unit with the latest date
+step 7:- once downloaded open install run and restart your computer`)">15. HP support page</button>
+
+    <button class="button-62"
+        onclick="copyToClipboard(`Generate battery health report:
+
+- Open command prompt as admin.
+- Run: powercfg /batteryreport
+- Report saved at C:\WINDOWS\system32\battery-report.html
+
+Once the file is generated please do share it with us, via email.`)">16. Battery health report</button>
+
+    <button class="button-62"
+        onclick="copyToClipboard(`Please follow these steps to get the recovery key:
+
+Step 1- Open https://aka.ms/myrecoverykey web address.
+Step 2- You can enter your registered email address and login
+Step 3- Make a note of the 48 digit recovery key listed there and enter into the pop up box which is requesting for the key.
+Step 4- Restart the machine if required have `)">17. Recovery Key</button>
+
+    <button class="button-62"
+        onclick="copyToClipboard(`Please perform the BIOS defaults as mentioned in the below video.
+
+https://www.youtube.com/watch?v=6woHPW-GB-E`)">18. Bios Defaults</button>
+
+ <button class="button-62"
+        onclick="copyToClipboard(`SAFE MODE:-
+ 
+1.Press Win + I to open Settings.
+2.Go to System > Recovery.
+3.Click Restart now under Advanced startup.
+4.After restart, select Troubleshoot.
+5.Choose Advanced options.
+6.Click Startup Settings.
+7.Click Restart.
+8.Press 4 or F4 for Safe Mode or 5 or F5 for Safe Mode with Networking.
+`)">19. Safe Mode</button>
+
+    
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Steps copied to clipboard!");
+            }).catch(err => {
+                console.error("Could not copy text:", err);
+            });
+        }
+
+        function toggleDropdown(id) {
+            const el = document.getElementById(id);
+            el.style.display = el.style.display === "block" ? "none" : "block";
+        }
+    </script>
+</body>
+
+</html>
+

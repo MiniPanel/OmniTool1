@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Subject</title>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* prevents scrollbars */
+    }
+
+    body {
+      background-color: pink;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+
+      /* ↓ scale everything down to 75% */
+      transform: scale(1);
+      transform-origin: top center;
+    }
+
+    .container {
+      background: #fff;
+      border-radius: 12px;
+      padding: 30px 40px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      max-width: 800px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .section {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .options label {
+      margin-right: 15px;
+      cursor: pointer;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    .button-62 {
+      background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+      border: 0;
+      border-radius: 12px;
+      color: #FFFFFF;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 2.5;
+      padding: 0 1rem;
+      text-align: center;
+      transition: box-shadow 0.2s ease-in-out;
+      margin-top: 20px;
+      width: 100%;
+    }
+
+    .button-62:not([disabled]):focus,
+    .button-62:not([disabled]):hover {
+      box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+                  -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
+                  0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
+    }
+
+    #output {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #222;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Case Subject</h2>
+
+    <!-- Model Name -->
+    <div class="section">
+      <label class="label">Model Name:</label>
+      <input type="text" id="model" placeholder="Enter model name">
+    </div>
+
+    <!-- Issue -->
+    <div class="section">
+      <label class="label">Issue:</label>
+      <input type="text" id="issue" placeholder="Enter issue details">
+    </div>
+
+    <!-- Country -->
+    <div class="section">
+      <label class="label">Country:</label>
+      <div class="options">
+        <label><input type="radio" name="country" value="AU" checked> AU</label>
+        <label><input type="radio" name="country" value="NZ"> NZ</label>
+        <label><input type="radio" name="country" value="SG"> SG</label>
+        <label><input type="radio" name="country" value="MY"> MY</label>
+        <label><input type="radio" name="country" value="PH"> PH</label>
+        <label><input type="radio" name="country" value="Island"> Island</label>
+      </div>
+    </div>
+
+    <!-- Type of Coverage -->
+    <div class="section">
+      <label class="label">Type of Coverage:</label>
+      <div class="options">
+        <label><input type="radio" name="coverageType" value="WARR" checked> WARR</label>
+        <label><input type="radio" name="coverageType" value="CNBD"> CNBD</label>
+        <label><input type="radio" name="coverageType" value="Q3BD"> Q3BD</label>
+        <label><input type="radio" name="coverageType" value="QNBD"> QNBD</label>
+        <label><input type="radio" name="coverageType" value="QSBD"> QSBD</label>
+        <label><input type="radio" name="coverageType" value="CSBD"> CSBD</label>
+      </div>
+    </div>
+
+    <!-- Special -->
+    <div class="section">
+      <label class="label">Special:</label>
+      <div class="options">
+        <label><input type="radio" name="special" value="" checked> None</label>
+        <label><input type="radio" name="special" value="DMR"> DMR</label>
+        <label><input type="radio" name="special" value="ADP"> ADP</label>
+        <label><input type="radio" name="special" value="DOA"> DOA</label>
+        <label><input type="radio" name="special" value="TRADE"> TRADE</label>
+        <label><input type="radio" name="special" value="ACG"> ACG</label>
+      </div>
+    </div>
+
+    <!-- Coverage -->
+    <div class="section">
+      <label class="label">Coverage:</label>
+      <div class="options">
+        <label><input type="radio" name="coverage" value="NBD" checked> NBD</label>
+        <label><input type="radio" name="coverage" value="SBD"> SBD</label>
+        <label><input type="radio" name="coverage" value="2BD"> 2BD</label>
+        <label><input type="radio" name="coverage" value="3BD"> 3BD</label>
+        <label><input type="radio" name="coverage" value="NSR"> NSR</label>
+        <label><input type="radio" name="coverage" value="4HR"> 4HR</label>
+        <label><input type="radio" name="coverage" value="8HR"> 8HR</label>
+      </div>
+    </div>
+
+    <!-- Service Type -->
+    <div class="section">
+      <label class="label">Service Type:</label>
+      <div class="options">
+        <label><input type="radio" name="service" value="ONS" checked> ONS</label>
+        <label><input type="radio" name="service" value="PURR"> PURR</label>
+        <label><input type="radio" name="service" value="CSR"> CSR</label>
+        <label><input type="radio" name="service" value="RCD"> RCD</label>
+        <label><input type="radio" name="service" value="OOW"> OOW</label>
+        <label><input type="radio" name="service" value="CARRY IN"> CARRY IN</label>
+        <label><input type="radio" name="service" value="CA"> CA</label>
+        <label><input type="radio" name="service" value="Depot Repair"> Depot Repair</label>
+      </div>
+    </div>
+
+    <!-- Button -->
+    <button class="button-62" onclick="generateConfig()">Generate & Copy</button>
+
+    <!-- Output -->
+    <div id="output">Result will appear here...</div>
+  </div>
+
+  <script>
+    function getRadioValue(name) {
+      const radios = document.getElementsByName(name);
+      for (let r of radios) {
+        if (r.checked) return r.value;
+      }
+      return '';
+    }
+
+    function generateConfig() {
+      const model = document.getElementById("model").value.trim();
+      const issue = document.getElementById("issue").value.trim();
+      const country = getRadioValue("country");
+      const coverageType = getRadioValue("coverageType");
+      const special = getRadioValue("special");
+      const coverage = getRadioValue("coverage");
+      const service = getRadioValue("service");
+
+      // Build config string WITHOUT PC
+      let config = `${country} / ${coverageType} / ${coverage} / ${service}`;
+      if (special) config += ` / ${special}`;
+      config += ` / ${model} / ${issue}`;
+
+      document.getElementById("output").innerText = config;
+
+      navigator.clipboard.writeText(config).then(() => {
+        alert("Copied: " + config);
+      });
+    }
+  </script>
+</body>
+</html>

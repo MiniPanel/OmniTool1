@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TEMPLATES</title>
+<style>
+    body {
+        background-color: pink;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px; /* Added padding to match TS_101.html */
+        text-align: center;
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    .step {
+            background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+            border: 0;
+            border-radius: 12px;
+            color: #FFFFFF;
+            cursor: pointer;
+            display: inline-block;
+            font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 2.5;
+            outline: transparent;
+            padding: 0 1rem;
+            text-align: center;
+            text-decoration: none;
+            transition: box-shadow 0.2s ease-in-out;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            white-space: nowrap;
+            margin: 10px;
+            width: 320px;
+            box-sizing: border-box;
+        }
+
+        .step:not([disabled]):focus,
+        .step:not([disabled]):hover {
+            box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+                        -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
+                        0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
+        }
+
+
+        .substeps {
+            display: none;
+            text-align: left;
+            margin: 10px auto 20px;
+            max-width: 600px;
+            background: #f7f1f1;
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        .substep {
+            background: #FF9A5A;
+            color: white;
+            padding: 10px 15px;
+            margin: 8px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .sub-step {
+            margin-left: 20px;
+            display: none; /* Initially hidden */
+        }
+
+.substeps {
+            display: none;
+            text-align: left;
+            margin: 10px auto 20px;
+            max-width: 600px;
+            background: #f7f1f1;
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        .substep {
+            background: #FF9A5A;
+            color: white;
+            padding: 10px 15px;
+            margin: 8px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .substep:hover {
+            background: #EF4765;
+        }
+
+        h1 {
+            color: #333;
+    }
+
+    </style>
+</head>
+<body>
+
+     <h1>TEMPLATES</h1>
+
+
+<div class="step" onclick="copyToClipboard('*********DOA Template***********\nIssue Description : \nClaim Type : \nCustomer Name : \nCompany Name : na\nPhone Number :\nPhone No Extension (If there is no direct contact number) : na\nAddress : \nEmail address : \nInvoice Attached : YES\nTAT Informed : YES\nBRT : NA')">1. DOA TEMPLATE</div>
+
+<div class="step" onclick="copyToClipboard('I will now proceed to arrange for a service and the technician will be contacting you in 3-4 business days')">2. ONSITE (SEA)</div>
+
+<div class="step" onclick="copyToClipboard('I will now proceed to arrange for a service and the technician will be contacting you in 1-2 business days')">3. ONSITE (ANZ)</div>
+
+<div class="step" onclick="copyToClipboard('I will go ahead and arrange a pickup service\nwhere your unit will be picked from your address and dropped at the service center,\nIt will take 5-7 business days to complete the service.')">4. PURR</div>
+
+
+<div class="step" onclick="copyToClipboard('I see that you are here for a case update, let me have a check and assist you.')">5. Case Update</div>
+
+<div class="step" onclick="copyToClipboard('xxxxxx, I would need to have this consulted with my product specialist team and will get back to you with an update once I hear from them, How about that?')">6. EMT-UPDATE</div>
+
+<div class="step" onclick="copyToClipboard('Before proceeding with the service, we would need to isolate the issue and once the issue is narrowed down we would proceed further accordingly,Shall we begin troubleshooting the issue?')">7. SERVICE before TS</div>
+
+<div class="step" onclick="copyToClipboard('We have arranged for an onsite service, where the tech will visit your address and replace the part.\nYou may expect the service depending on the part availability.\nThe team concerned will contact you and let you know the ETA.\nAlso, the onsite tech will give you a call before visiting.')">8. Onsite visit </div>
+
+<div class="step" onclick="copyToClipboard('I will proceed with the necessary arrangements to arrange for a service. Please note that the technician will inspect the unit for any faults and assess whether a part replacement is necessary. If any damages are found, the respective part will be replaced on a chargeable basis.')">9. tech Note</div>
+
+<div class="step" onclick="copyToClipboard(`Below are the addresses for the Carry-In Service. Please choose one:
+
+- 353 Burwood Hwy, Forest Hill VIC 3131
+- Level 2/234 Collins St, Melbourne VIC 3000 (Elite Lounge)`)">
+  10. Melwalkin Address
+</div>
+
+
+
+<div class="step" onclick="copyToClipboard(`
+
+************************************************** CARRY-IN TEMPLATE **************************************************
+
+Customer Name: 
+
+Phone Number: 
+
+Alternate Number: N/A
+
+Email Address: 
+
+Best Reachable Time (BRT): 9 AM – 5 PM
+
+Part Recommended: 
+
+Type of Service: Carry-in
+
+Service Center Address Given As: 
+`)">
+  11. Melwalkin-Template
+</div>
+
+<div class="step" onclick="copyToClipboard('Please follow this document https://support.hp.com/in-en/document/ish_9535708-9536016-16, A forgotten password leads to a systemboard replacement on a chargeable basis\n')">12. Forgotten BIOS PSWD</div>
+
+<div class="step" onclick="copyToClipboard('Please follow the below steps to enable USB tethering\n\nconnect your phone to a computer with a USB cable,\nnavigate to Settings >\nNetwork & internet >\nHotspot & tethering,\n\nand then toggle on USB tethering.\n\nOnce toggled, kindly check if the laptop has internet access.')">13. USB tethering(Android)</div>
+
+<div class="step" onclick="copyToClipboard('I will check for the availability of the required part in your country, If it is available, I will inform you and share a quotation. If not, I would recommend reaching out to a local technician for assistance with the replacement.')">14. Part availability</div>
+
+
+
+<script>
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        alert("Template copied to clipboard!");
+    }).catch(err => {
+        console.error("Could not copy text: ", err);
+        alert("Failed to copy text!");
+    });
+}
+function toggleSubSteps(id) {
+        const subSteps = document.getElementById(id);
+        if (subSteps.style.display === "none" || subSteps.style.display === "") {
+            subSteps.style.display = "block"; // Show
+        } else {
+            subSteps.style.display = "none";  // Hide
+        }
+    }
+
+</script>
+
+<script>
+function toggleSubSteps(id) {
+    const el = document.getElementById(id);
+    if (el.style.display === "none" || el.style.display === "") {
+        el.style.display = "block";
+    } else {
+        el.style.display = "none";
+    }
+}
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        alert("Copied to clipboard!");
+    }).catch(err => {
+        alert("Failed to copy: " + err);
+    });
+}
+</script>
+
+
+</body>
+</html>

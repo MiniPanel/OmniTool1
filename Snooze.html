@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNOOZE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: pink;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+.step {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            display: inline-block;
+            text-decoration: none;
+        }
+.button-62 {
+            background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+            border: 0;
+            border-radius: 12px;
+            color: #FFFFFF;
+            cursor: pointer;
+            display: inline-block;
+            font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial,
+                sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 2.5;
+            outline: transparent;
+            padding: 0 1rem;
+            text-align: center;
+            text-decoration: none;
+            transition: box-shadow 0.2s ease-in-out;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            white-space: nowrap;
+            margin: 10px;
+            width: 320px;
+            box-sizing: border-box;
+        }
+
+        .button-62:not([disabled]):focus,
+        .button-62:not([disabled]):hover {
+            box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+                -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
+                0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+       .sep {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            text-align: center; /* Center the text */
+        }
+        
+
+        .step:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+
+<h1>SNOOZE MESSAGE</h1>
+
+
+<div>
+<div class="button-62" onclick="copyToClipboard('We are currently having a high volume of customer requests, sorry for the delay in response')">
+    1. High_ volume of customers
+</div>
+</div>
+
+<div>
+<div class="button-62" onclick="copyToClipboard('I apologize for the delay in response, We could not assist you as there was a tool down time.')">
+    2. Tool downtime
+</div>
+</div>
+
+<div>
+<div class="button-62" onclick="copyToClipboard('Thank you for contacting HP Support via WhatsApp. We're back and ready to assist you.')">
+    3. Back and ready to assist you 1.
+</div>
+</div>
+
+<div>
+<div class="button-62" onclick="copyToClipboard('Thank you for contacting HP Support via WhatsApp. We apologize for the delay in our response. If you still need assistance please reply to this message. We appreciate your patience.')">
+    4. If you still need assistance please reply.
+</div>
+</div>
+
+<div>
+<div class="button-62" onclick="copyToClipboard('Hello, we have been working on your case and we have some updates for you. Please reply to this message if you would like to know more about it. We appreciate your patience.')">
+    5. We have some updates for you
+</div>
+</div>
+
+<div>
+<div class="button-62" onclick="copyToClipboard('Hello, thank you for contacting HP Support via WhatsApp. We are back and ready to assist you.  If you still need assistance please reply to this message.')">
+    6. Back and ready to assist you 2. 
+</div>
+</div>
+
+<div>
+<div class="button-62" onclick="copyToClipboard('Hello, we have not heard back from you. Please let us know whether your issue is resolved or you need additional help. If no feedback is provided we will proceed to close the conversation in the next 24 hours. Thank you in advance.')">
+    7. 24 hours snooze?
+</div>
+</div>
+
+<div>
+<div class="button-62" onclick="copyToClipboard(' Hello, we have not heard back from you, so, we will proceed to close this conversation. If you still need assistance please contact us again. Have a great day! ')">
+    8. End conversation
+</div>
+</div>
+
+<div>
+<div class="button-62" onclick="copyToClipboard(' This chat will be locked on my end post 24 hours after your last response. Following that, I will only be able to send a reminder message. Once you reply, the conversation will be unlocked, and I can continue to assist you further. ')">
+    9. Chat Lock
+</div>
+</div>
+
+
+
+
+
+
+
+<script>
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(function() {
+            alert("Steps for 'Power Drain' have been copied to clipboard");
+        }, function(err) {
+            console.error('Could not copy text: ', err);
+        });
+    }
+</script>
+
+
+</body>
+</html>
