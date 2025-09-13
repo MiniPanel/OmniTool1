@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDL</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #5a2a36; /* same background as your screenshot */
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #ddd;
+      font-weight: bold;
+    }
+
+    .button-62 {
+      background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+      border: 0;
+      border-radius: 12px;
+      color: #FFFFFF;
+      cursor: pointer;
+      display: block; /* stacked vertically */
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 2.5;
+      padding: 0 1rem;
+      text-align: center;
+      text-decoration: none;
+      transition: box-shadow 0.2s ease-in-out;
+      margin: 15px auto; /* centers and spaces */
+      width: 320px;
+      box-sizing: border-box;
+    }
+
+    .button-62:not([disabled]):hover {
+      box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+                  -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
+                  0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>PDL</h1>
+
+ <div class="button-62" onclick="copyToClipboard('sneha.k@hp.com; yuvetha.balakrishnan@hp.com; revathi.s.kumar@hp.com; sumitb@hp.com')">
+    Leads
+  </div>
+
+ <div class="button-62" onclick="copyToClipboard('hpspacpschat@hp.com')">
+    Omni_Channel
+  </div>
+
+  <div class="button-62" onclick="copyToClipboard('SthPacPlanningPPS@hp.com')">
+    Part Availability ANZ
+  </div>
+
+  <div class="button-62" onclick="copyToClipboard('sneha.k@hp.com; yuvetha.balakrishnan@hp.com; revathi.s.kumar@hp.com; sumitb@hp.com')">
+    Part Availability SEA
+  </div>
+
+  <div class="button-62" onclick="copyToClipboard('myonsite.resourceadmin@hp.com')">
+    RA team-Malaysia
+  </div>
+
+  <div class="button-62" onclick="copyToClipboard('sg.resourceadmin@hp.com')">
+    RA team-Singapore
+  </div>
+
+  <div class="button-62" onclick="copyToClipboard('sp-hpcs-cm-resourceadmin@hp.com')">
+    RA team-Australia
+  </div>
+
+  <div class="button-62" onclick="copyToClipboard('apj-global-trade-general-queries@hp.com')">
+    GT Check
+  </div>
+
+  <div class="button-62" onclick="copyToClipboard('hpapjhelpdesk@hp.com')">
+    SG helpdesk
+  </div>
+
+  <div class="button-62" onclick="copyToClipboard('hpcustomersupportcdcbapjemt@hp.com')">
+    EMT
+  </div>
+
+  <div class="button-62" onclick="copyToClipboard('pps_carepack_ap@hp.com')">
+    Carepack
+  </div>
+
+  <script>
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied to clipboard: " + text);
+      }).catch(err => {
+        console.error("Failed to copy: ", err);
+      });
+    }
+  </script>
+
+</body>
+</html>
