@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Process Guide Viewer</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+      background: pink;
+      color: #222;
+    }
+    #guideHeader {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #fff0f5;
+      padding: 8px 12px;
+      z-index: 1000;
+      border-bottom: 1px solid #e6b4ce;
+      margin-top: 0;
+    }
+    #guideTitle {
+      font-size: 28px;
+      margin: 0;
+      flex: 1;
+      text-align: center;
+      font-weight: bold;
+      color: #e43f5a;
+    }
+    #guideActions {
+      display: flex;
+      gap: 6px;
+    }
+    .button-62 {
+      background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+      border: 0;
+      border-radius: 12px;
+      color: #FFFFFF;
+      cursor: pointer;
+      display: inline-block;
+      font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 2.5;
+      outline: transparent;
+      padding: 0 1rem;
+      text-align: center;
+      text-decoration: none;
+      transition: box-shadow 0.2s ease-in-out;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      white-space: nowrap;
+      margin: 10px;
+      width: 160px;
+      box-sizing: border-box;
+    }
+    .button-62:not([disabled]):focus,
+    .button-62:not([disabled]):hover {
+      box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+        -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
+        0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      width: 220px;
+      background-color: #3c1f1f;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .sidebar h2 {
+      margin: 0;
+      padding: 16px 18px 8px 18px;
+      font-size: 18px;
+      color: #fff;
+      background: none;
+      border: none;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .tab-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+    .tab-item {
+      width: 100%;
+      padding: 14px 20px;
+      background: linear-gradient(to bottom, #EF4765 0%, #FF9A5A 100%);
+      border: none;
+      color: #fff;
+      text-align: left;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      outline: none;
+      border-bottom: 1px solid #3c1f1f;
+      box-shadow: none;
+      border-radius: 0;
+      transition: none;
+      opacity: 1;
+    }
+    .tab-item.selected {
+      background: linear-gradient(to bottom, #EF4765 0%, #FF9A5A 100%);
+      color: #fff;
+      font-weight: bold;
+      text-shadow: 0 1px 2px #7c2323;
+    }
+    .tab-item:not(.selected) {
+      font-weight: normal;
+    }
+    .tab-item:active {
+      opacity: 1;
+    }
+
+    #main {
+      flex: 1;
+      padding: 0 20px 20px 20px;
+      overflow-y: auto;
+      box-sizing: border-box;
+      background: transparent;
+    }
+    .step-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      border: 1.5px solid #e6b4ce;
+      border-radius: 12px;
+      padding: 0;
+      margin-bottom: 20px;
+      background-color: #fff;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 2px 12px #ffb4b480;
+      position: relative;
+      width: 100%;
+    }
+    .step-number {
+      font-size: 20px;
+      font-weight: bold;
+      color: #ef4765;
+      align-self: flex-start;
+      margin: 18px 0 8px 20px;
+      letter-spacing: 1px;
+      background: #fff0f5;
+      border-radius: 6px;
+      padding: 2px 14px 2px 8px;
+      box-shadow: 0 1px 4px #ffe5e580;
+      text-transform: uppercase;
+      font-family: inherit;
+    }
+    .imgContainer {
+      max-width: 860px;   /* was none or smaller */
+      width: 100%;
+      position: relative;
+      display: inline-block;
+      background: #232323;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      padding: 0;
+      margin-top: 0;
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+    .imgContainer img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-width: 100%;
+      max-height: 600px;
+      object-fit: contain;
+      background: #ffe5e5;
+      border-radius: 8px;
+      margin: 0;
+      border: 1.5px solid #ef4765;
+      box-shadow: none;
+    }
+    .expandBtn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 4px 8px;
+      z-index: 5;
+    }
+    .step-text {
+      width: 90%;
+      min-height: 60px;
+      background: #fff0f5;
+      color: #e43f5a;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 15px;
+      border: 1px solid #e6b4ce;
+      margin-top: 8px;
+      box-sizing: border-box;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-weight: 500;
+      margin-bottom: 18px;
+    }
+    input[type="file"] { display: none; }
+    @media (max-width: 800px) {
+      .sidebar { width: 100px; }
+      .step-box { max-width: 100%; }
+      .imgContainer img { width: 100%; height: auto; }
+      .button-62 { width: 100px; font-size: 13px; }
+      .tab-item { padding: 12px 8px; font-size: 13px; }
+      .sidebar h2 { padding: 8px 8px 6px 8px; font-size: 14px;}
+      .step-number { font-size: 16px; padding: 2px 8px 2px 4px;}
+    }
+    #fullscreenOverlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+    #fullscreenOverlay img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 12px;
+      border: 2.5px solid #ef4765;
+      background: #ffe5e5;
+      display: block;
+      margin: auto;
+    }
+    #fullscreenOverlay span {
+      position: absolute;
+      top: 20px; right: 30px;
+      font-size: 36px;
+      color: white;
+      cursor: pointer;
+      z-index: 1001;
+      font-weight: bold;
+    }
+    #closeFullscreenBtn {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 24px;
+      font-size: 18px;
+      border-radius: 8px;
+      border: none;
+      background: #232323;
+      color: #fff;
+      cursor: pointer;
+      opacity: 0.92;
+      z-index: 1000;
+    }
+    #closeFullscreenBtn:hover {
+      background: #444;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Process Guides</h2>
+    <div class="tab-list" id="guideList"></div>
+  </div>
+  <!-- Main content -->
+  <div id="main">
+    <div id="guideHeader">
+      <h1 id="guideTitle">No Guide Selected</h1>
+      <div id="guideActions">
+        <button id="importJsonBtn" class="button-62" title="Import Guides">＋ Import</button>
+        <input type="file" id="jsonFileInput" accept=".json">
+      </div>
+    </div>
+    <div id="stepsContainer"></div>
+  </div>
+  <!-- Fullscreen Overlay for image expansion -->
+  <div id="fullscreenOverlay" onclick="if(event.target===this)closeFullscreen()">
+    <span onclick="closeFullscreen()">&times;</span>
+    <button id="closeFullscreenBtn" onclick="closeFullscreen()">Close</button>
+    <img id="fullscreenImg" src="">
+  </div>
+  <script>
+    const guideListEl = document.getElementById("guideList");
+    const stepsContainer = document.getElementById("stepsContainer");
+    const guideTitle = document.getElementById("guideTitle");
+    const importJsonBtn = document.getElementById("importJsonBtn");
+    const jsonFileInput = document.getElementById("jsonFileInput");
+
+    let guides = {};
+    let currentGuide = null;
+
+    function renderSidebar() {
+      guideListEl.innerHTML = "";
+      for (const name in guides) {
+        const btn = document.createElement("button");
+        btn.className = "tab-item" + (currentGuide === name ? " selected" : "");
+        btn.textContent = name;
+        btn.onclick = () => loadGuide(name);
+        guideListEl.appendChild(btn);
+      }
+    }
+    function loadGuide(name) {
+      currentGuide = name;
+      guideTitle.textContent = name;
+      stepsContainer.innerHTML = "";
+      if (!guides[name] || !Array.isArray(guides[name])) return;
+      guides[name].forEach((step, idx) => {
+        addStep(step.image, step.text, idx);
+      });
+      renderSidebar();
+    }
+    function addStep(imageData = null, text = "", index = null) {
+      const stepBox = document.createElement("div");
+      stepBox.className = "step-box";
+
+      // Add the step number as "STEP 1", "STEP 2", etc.
+      const stepNumber = document.createElement("div");
+      stepNumber.className = "step-number";
+      stepNumber.textContent = (index !== null ? "STEP " + (index + 1) : "") ;
+      stepBox.appendChild(stepNumber);
+
+      if (imageData) {
+        // Create the image container
+        const imgContainer = document.createElement("div");
+        imgContainer.className = "imgContainer";
+
+        // The image itself
+        const img = document.createElement("img");
+        img.src = imageData;
+
+        // Expand button
+        const expandBtn = document.createElement("button");
+        expandBtn.className = "expandBtn";
+        expandBtn.textContent = "⤢";
+        expandBtn.title = "Expand image";
+        expandBtn.onclick = (e) => {
+          e.stopPropagation();
+          openFullscreen(imageData || img.src);
+        };
+
+        imgContainer.appendChild(img);
+        imgContainer.appendChild(expandBtn);
+        stepBox.appendChild(imgContainer);
+      }
+
+      const textDiv = document.createElement("div");
+      textDiv.className = "step-text";
+      textDiv.textContent = text;
+      stepBox.appendChild(textDiv);
+
+      stepsContainer.appendChild(stepBox);
+    }
+
+    // Fullscreen overlay logic
+    function openFullscreen(src) {
+      const overlay = document.getElementById("fullscreenOverlay");
+      const img = document.getElementById("fullscreenImg");
+      img.src = src;
+      overlay.style.display = "flex";
+    }
+    function closeFullscreen() {
+      document.getElementById("fullscreenOverlay").style.display = "none";
+    }
+
+    // Import JSON logic and auto-save
+    importJsonBtn.onclick = () => jsonFileInput.click();
+    jsonFileInput.onchange = (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (typeof data !== "object" || Array.isArray(data)) {
+            alert("Invalid JSON structure for process guides.");
+            return;
+          }
+          guides = data;
+          // Auto-save to localStorage
+          localStorage.setItem("guides", JSON.stringify(guides));
+          currentGuide = null;
+          guideTitle.textContent = "No Guide Selected";
+          stepsContainer.innerHTML = "";
+          renderSidebar();
+        } catch {
+          alert("Failed to parse JSON file.");
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = "";
+    };
+
+    // Load from localStorage if present (auto-load last saved)
+    window.onload = () => {
+      const saved = localStorage.getItem("guides");
+      if (saved) {
+        try {
+          guides = JSON.parse(saved);
+          renderSidebar();
+        } catch {}
+      }
+    };
+
+    // Initial (empty) render
+    renderSidebar();
+  </script>
+</body>
+</html>
