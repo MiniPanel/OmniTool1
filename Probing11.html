@@ -1,13 +1,32 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=0.8" />
     <title>PROBING QUESTIONS</title>
     <style>
-
+        /* Default page scale set to 80%:
+           - initial-scale in meta helps mobile browsers
+           - zoom works in Blink/WebKit (Chrome/Edge/Safari)
+           - Firefox fallback uses a transform and adjusts width to avoid clipping
+        */
+        :root { --page-scale: 0.8; }
+        html {
+            zoom: 80%; /* works in Chrome/Edge/Safari */
+        }
+        /* Firefox fallback */
+        @supports (-moz-appearance: none) {
+            html {
+                /* transform will visually scale the page in Firefox */
+                transform: scale(var(--page-scale));
+                transform-origin: top center;
+            }
+            /* Expand layout width so content doesn't get clipped after scaling */
+            body {
+                width: calc(100% / var(--page-scale));
+            }
+        }
 
         body {
             font-family: Arial, sans-serif;
@@ -16,7 +35,8 @@
             padding: 20px;
             text-align: center;
         }
- .button {
+
+        .button {
             background-color: #4CAF50; /* Green */
             border: none;
             color: white;
@@ -30,7 +50,7 @@
             border-radius: 4px;
         }
 
-.step {
+        .step {
             background-color: #007BFF;
             color: white;
             padding: 10px 20px;
@@ -40,7 +60,8 @@
             display: inline-block;
             text-decoration: none;
         }
-.button-62 {
+
+        .button-62 {
             background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
             border: 0;
             border-radius: 12px;
@@ -72,16 +93,11 @@
                         0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
         }
 
-   
-        
-
-
-
         h1 {
             color: #333;
         }
 
-       .sep {
+        .sep {
             background: #fff;
             border: 1px solid #ddd;
             border-radius: 4px;
@@ -91,19 +107,47 @@
             transition: background 0.3s ease;
             text-align: center; /* Center the text */
         }
-        
 
         .step:hover {
             background-color: #0056b3;
         }
 
-</style>
+        /* Large output box styling (as in your reference image) */
+        .output-wrapper {
+            max-width: 96%;
+            margin: 30px auto;
+            text-align: left;
+        }
 
-<script>
+        #outputBox {
+            width: 100%;
+            height: 420px;
+            resize: none;
+            padding: 20px;
+            box-sizing: border-box;
+            font-size: 16px;
+            line-height: 1.4;
+            background: rgba(255,255,255,0.25);
+            border: 6px solid #d21919; /* red border like the reference */
+            border-radius: 4px;
+            color: #000;
+            white-space: pre-wrap;
+        }
 
+        /* Make it look good on small screens */
+        @media (max-width: 900px) {
+            .button-62 {
+                width: 90%;
+            }
+            #outputBox {
+                height: 320px;
+            }
+        }
+    </style>
 
-const issues = {
-    "NoPower": `NO POWER ISSUE:-
+    <script>
+        const issues = {
+            "NoPower": `NO POWER ISSUE:-
 
 1. May I know since when are you facing the issue?
 2. Are there any physical accidental damages or liquid spillages?
@@ -115,7 +159,7 @@ const issues = {
 8. Do you see any blink codes or hear beep sounds when you try to power it on?
 9. Has this laptop had any repairs or part replacements (motherboard, battery, etc.) before?`,
 
-    "NoBoot": `NO BOOT ISSUE:-
+            "NoBoot": `NO BOOT ISSUE:-
 
 1. May I know since when are you facing the issue?
 2. Are there any physical accidental damages or liquid spillages?
@@ -125,7 +169,7 @@ const issues = {
 6. Are you able to access BIOS (F10) or Startup Menu (ESC) when powering on?
 7. Did Windows or any firmware updates install recently before the issue started?`,
 
-    "Audio": `AUDIO ISSUES:-
+            "Audio": `AUDIO ISSUES:-
 
 0. Is it no sound at all, or do you hear distorted/crackling audio?
 1. May I know since when are you facing the issue?
@@ -138,7 +182,7 @@ const issues = {
 8. Do you hear startup chime/beep when powering on?
 9. Do you have Bluetooth devices paired that might hijack sound output?`,
 
-    "Display": `DISPLAY ISSUES:-
+            "Display": `DISPLAY ISSUES:-
 
 0. Is the screen black, flickering, distorted, or dim?
 1. Share image or video
@@ -149,7 +193,7 @@ const issues = {
 6. Does issue appear in BIOS (F10)?
 7. Do you see HP logo during startup or screen blank from power-on?`,
 
-    "Adapter": `ADAPTER ISSUE:-
+            "Adapter": `ADAPTER ISSUE:-
 
 1. Since when facing adapter issue?
 2. Any physical damage or liquid spill?
@@ -161,7 +205,7 @@ const issues = {
 8. Any unusual sounds, sparks, or smell?
 9. Tried different wall outlet?`,
 
-    "Keyboard": `KEYBOARD ISSUE:-
+            "Keyboard": `KEYBOARD ISSUE:-
 
 0. Share image/video of issue.
 1. Since when facing keyboard issue?
@@ -174,7 +218,7 @@ const issues = {
 8. Has keyboard been cleaned?
 9. Keyboard backlight/LEDs working?`,
 
-    "Touchpad": `TOUCHPAD ISSUE:-
+            "Touchpad": `TOUCHPAD ISSUE:-
 
 0. Share image/video of issue.
 1. Since when facing touchpad issue?
@@ -186,7 +230,7 @@ const issues = {
 7. Multi-touch gestures working?
 8. Has it been disabled via function keys or settings?`,
 
-    "Ports": `PORTS ISSUE:-
+            "Ports": `PORTS ISSUE:-
 
 1. Since when facing ports issue?
 2. Any drops or liquid exposure?
@@ -197,7 +241,7 @@ const issues = {
 7. Do ports respond (charge/detect sound)?
 8. Any recent repair near affected ports?`,
 
-    "Battery": `BATTERY ISSUE:-
+            "Battery": `BATTERY ISSUE:-
 
 0. Is battery swollen, overheating, or physically abnormal?
 1. Since when facing battery issue?
@@ -208,36 +252,41 @@ const issues = {
 6. Battery percentage drops suddenly or drains fast?
 7. Laptop shuts down unexpectedly even with charge?`,
 
-    "Basic": `Kindly confirm the below:-
+            "Basic": `Kindly confirm the below:-
 
 1. May I know since when are you facing this issue?
 2. May I know if there were any hardware changes or software updates made to the unit?
 3. May I know if there are any physical damages or liquid spillage happened on the unit?`
-};
+        };
 
-
-function copyToClipboard(issue) {
-    navigator.clipboard.writeText(issues[issue]).then(() => {
-        alert(issue + " questions copied!");
-    });
-}
-</script>
+        // Show the selected question text inside the output textarea.
+        function showQuestion(issueKey) {
+            const box = document.getElementById('outputBox');
+            if (!box) return;
+            box.value = issues[issueKey] || '';
+            // no clipboard operations performed — text is only displayed
+        }
+    </script>
 </head>
 
 <body>
-<h2>PROBING QUESTIONS</h2>
-<div>
-    <button class="button-62" onclick="copyToClipboard('NoPower')">1. No Power</button>
-    <button class="button-62" onclick="copyToClipboard('NoBoot')">2. No Boot</button>
-    <button class="button-62" onclick="copyToClipboard('Audio')">3. Audio</button>
-    <button class="button-62" onclick="copyToClipboard('Display')">4. Display</button>
-    <button class="button-62" onclick="copyToClipboard('Adapter')">5. Adapter</button>
-    <button class="button-62" onclick="copyToClipboard('Keyboard')">6. Keyboard</button>
-    <button class="button-62" onclick="copyToClipboard('Touchpad')">7. Touchpad</button>
-    <button class="button-62" onclick="copyToClipboard('Ports')">8. Ports</button>
-    <button class="button-62" onclick="copyToClipboard('Battery')">9. Battery</button>
-    <button class="button-62" onclick="copyToClipboard('Basic')">10. Basic-3</button>
+    <h2>PROBING QUESTIONS</h2>
+    <div>
+        <button class="button-62" onclick="showQuestion('NoPower')">1. No Power</button>
+        <button class="button-62" onclick="showQuestion('NoBoot')">2. No Boot</button>
+        <button class="button-62" onclick="showQuestion('Audio')">3. Audio</button>
+        <button class="button-62" onclick="showQuestion('Display')">4. Display</button>
+        <button class="button-62" onclick="showQuestion('Adapter')">5. Adapter</button>
+        <button class="button-62" onclick="showQuestion('Keyboard')">6. Keyboard</button>
+        <button class="button-62" onclick="showQuestion('Touchpad')">7. Touchpad</button>
+        <button class="button-62" onclick="showQuestion('Ports')">8. Ports</button>
+        <button class="button-62" onclick="showQuestion('Battery')">9. Battery</button>
+        <button class="button-62" onclick="showQuestion('Basic')">10. Basic-3</button>
+    </div>
 
-</div>
+    <div class="output-wrapper">
+        <!-- Large read-only text area that displays the questions. Matches the red-bordered box in your reference -->
+        <textarea id="outputBox" readonly placeholder="Selected probing questions will appear here..."></textarea>
+    </div>
 </body>
 </html>
