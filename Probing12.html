@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=0.8" />
+    <title>PROBING QUESTIONS</title>
+    <style>
+        /* Default page scale set to 80%:
+           - initial-scale in meta helps mobile browsers
+           - zoom works in Blink/WebKit (Chrome/Edge/Safari)
+           - Firefox fallback uses a transform and adjusts width to avoid clipping
+        */
+        :root { --page-scale: 0.8; }
+        html {
+            zoom: 80%; /* works in Chrome/Edge/Safari */
+        }
+        /* Firefox fallback */
+        @supports (-moz-appearance: none) {
+            html {
+                /* transform will visually scale the page in Firefox */
+                transform: scale(var(--page-scale));
+                transform-origin: top center;
+            }
+            /* Expand layout width so content doesn't get clipped after scaling */
+            body {
+                width: calc(100% / var(--page-scale));
+            }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: pink;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .step {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .button-62 {
+            background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+            border: 0;
+            border-radius: 12px;
+            color: #FFFFFF;
+            cursor: pointer;
+            display: inline-block;
+            font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 2.5;
+            outline: transparent;
+            padding: 0 1rem;
+            text-align: center;
+            text-decoration: none;
+            transition: box-shadow 0.2s ease-in-out;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            white-space: nowrap;
+            margin: 10px;
+            width: 320px;
+            box-sizing: border-box;
+        }
+
+        .button-62:not([disabled]):focus,
+        .button-62:not([disabled]):hover {
+            box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+                        -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
+                        0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .sep {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            text-align: center; /* Center the text */
+        }
+
+        .step:hover {
+            background-color: #0056b3;
+        }
+
+        /* Large output box styling (as in your reference image) */
+        .output-wrapper {
+            max-width: 96%;
+            margin: 30px auto;
+            text-align: left;
+        }
+
+        #outputBox {
+            width: 100%;
+            height: 420px;
+            resize: none;
+            padding: 20px;
+            box-sizing: border-box;
+            font-size: 16px;
+            line-height: 1.4;
+            background: rgba(255,255,255,0.25);
+            border: 6px solid #d21919; /* red border like the reference */
+            border-radius: 4px;
+            color: #000;
+            white-space: pre-wrap;
+        }
+
+        /* Make it look good on small screens */
+        @media (max-width: 900px) {
+            .button-62 {
+                width: 90%;
+            }
+            #outputBox {
+                height: 320px;
+            }
+        }
+    </style>
+
+    <script>
+        const issues = {
+            "NoPower": `NO POWER ISSUE:-
+
+1. May I know since when are you facing the issue?
+2. Are there any physical accidental damages or liquid spillages?
+3. Were there any hardware or software changes prior to the issue?
+4. Did the laptop run out of battery or did it randomly shutdown and did not power on again?
+5. Do the lights on the keyboard light up or is there any fan noise heard when powered on?
+6. Please confirm if the LED next to the charging port is lit when connected to the charger that was shipped with the unit?
+7. Have you tried a different known-good charger or outlet to rule out power source issues?
+8. Do you see any blink codes or hear beep sounds when you try to power it on?
+9. Has this laptop had any repairs or part replacements (motherboard, battery, etc.) before?`,
+
+            "NoBoot": `NO BOOT ISSUE:-
+
+1. May I know since when are you facing the issue?
+2. Are there any physical accidental damages or liquid spillages?
+3. Were there any hardware or software changes prior to the issue?
+4. Do you observe any fan noise or are there any lights on the power button or keyboard?
+5. When you press the power button, do you see any HP logo, spinning dots, or does the screen stay completely black?
+6. Are you able to access BIOS (F10) or Startup Menu (ESC) when powering on?
+7. Did Windows or any firmware updates install recently before the issue started?`,
+
+            "Audio": `AUDIO ISSUES:-
+
+0. Is it no sound at all, or do you hear distorted/crackling audio?
+1. May I know since when are you facing the issue?
+2. Are there any physical accidental damages or liquid spillages?
+3. Were there any hardware or software changes/update prior to the issue?
+4. Is this issue happening with all applications or only specific ones (YouTube, Zoom, VLC)?
+5. Does this occur with only built-in speakers or even external speakers/headphones?
+6. Is the sound muted or volume turned down?
+7. Checked Device Manager for audio driver errors?
+8. Do you hear startup chime/beep when powering on?
+9. Do you have Bluetooth devices paired that might hijack sound output?`,
+
+            "Display": `DISPLAY ISSUES:-
+
+0. Is the screen black, flickering, distorted, or dim?
+1. Share image or video
+2. Since when are you facing the issue?
+3. Any accidental damage or liquid spill?
+4. Any hardware/software changes/update before issue?
+5. When connected to an external monitor, does display work?
+6. Does issue appear in BIOS (F10)?
+7. Do you see HP logo during startup or screen blank from power-on?`,
+
+            "Adapter": `ADAPTER ISSUE:-
+
+1. Since when facing adapter issue?
+2. Any physical damage or liquid spill?
+3. Does charging LED turn on when plugged?
+4. Tried another HP adapter?
+5. Does original adapter charge another device?
+6. Share image of charging port.
+7. Share image of CT number on adapter.
+8. Any unusual sounds, sparks, or smell?
+9. Tried different wall outlet?`,
+
+            "Keyboard": `KEYBOARD ISSUE:-
+
+0. Share image/video of issue.
+1. Since when facing keyboard issue?
+2. Any drops, impacts, or spills?
+3. Are all keys affected or only specific ones?
+4. External keyboard working fine?
+5. Does built-in keyboard work in BIOS?
+6. Any recent driver or OS updates?
+7. Keys sticking, double typing, or wrong characters?
+8. Has keyboard been cleaned?
+9. Keyboard backlight/LEDs working?`,
+
+            "Touchpad": `TOUCHPAD ISSUE:-
+
+0. Share image/video of issue.
+1. Since when facing touchpad issue?
+2. Any drops or liquid exposure?
+3. Completely unresponsive or partially working?
+4. External mouse working fine?
+5. Does touchpad work in BIOS?
+6. Any recent driver or OS updates?
+7. Multi-touch gestures working?
+8. Has it been disabled via function keys or settings?`,
+
+            "Ports": `PORTS ISSUE:-
+
+1. Since when facing ports issue?
+2. Any drops or liquid exposure?
+3. Which port(s) affected, and what devices connected?
+4. Tested same device on another laptop?
+5. Tried multiple cables or accessories?
+6. Any physical damage or bent pins?
+7. Do ports respond (charge/detect sound)?
+8. Any recent repair near affected ports?`,
+
+            "Battery": `BATTERY ISSUE:-
+
+0. Is battery swollen, overheating, or physically abnormal?
+1. Since when facing battery issue?
+2. Any physical damage or liquid exposure?
+3. Does laptop work normally on AC power?
+4. Charging LED indicator shows charging?
+5. Tried different adapter?
+6. Battery percentage drops suddenly or drains fast?
+7. Laptop shuts down unexpectedly even with charge?`,
+
+            "Basic": `Kindly confirm the below:-
+
+1. May I know since when are you facing this issue?
+2. May I know if there were any hardware changes or software updates made to the unit?
+3. May I know if there are any physical damages or liquid spillage happened on the unit?`
+        };
+
+        // Show the selected question text inside the output textarea.
+        function showQuestion(issueKey) {
+            const box = document.getElementById('outputBox');
+            if (!box) return;
+            box.value = issues[issueKey] || '';
+            // no clipboard operations performed — text is only displayed
+        }
+    </script>
+</head>
+
+<body>
+    <h2>PROBING QUESTIONS</h2>
+    <div>
+        <button class="button-62" onclick="showQuestion('NoPower')">1. No Power</button>
+        <button class="button-62" onclick="showQuestion('NoBoot')">2. No Boot</button>
+        <button class="button-62" onclick="showQuestion('Audio')">3. Audio</button>
+        <button class="button-62" onclick="showQuestion('Display')">4. Display</button>
+        <button class="button-62" onclick="showQuestion('Adapter')">5. Adapter</button>
+        <button class="button-62" onclick="showQuestion('Keyboard')">6. Keyboard</button>
+        <button class="button-62" onclick="showQuestion('Touchpad')">7. Touchpad</button>
+        <button class="button-62" onclick="showQuestion('Ports')">8. Ports</button>
+        <button class="button-62" onclick="showQuestion('Battery')">9. Battery</button>
+        <button class="button-62" onclick="showQuestion('Basic')">10. Basic-3</button>
+    </div>
+
+    <div class="output-wrapper">
+        <!-- Large read-only text area that displays the questions. Matches the red-bordered box in your reference -->
+        <textarea id="outputBox" readonly placeholder="Selected probing questions will appear here..."></textarea>
+    </div>
+</body>
+</html>
