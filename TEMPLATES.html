@@ -167,8 +167,39 @@ Service Center Address Given As:
 
 <div class="step" onclick="copyToClipboard('I will check for the availability of the required part in your country, If it is available, I will inform you and share a quotation. If not, I would recommend reaching out to a local technician for assistance with the replacement.')">14. Part availability</div>
 
+<div class="step" onclick="copyToClipboard('Press windows and R together, in the pop-up please type and search and enter for msinfo32 please do share an image of the screen that comes up.')">15. BIOS version</div>
+
+<div class="step" onclick="copyToClipboard(`
+
+Please use the below steps to backup the Bitlocker key.
 
 
+Back Up Using BitLocker Management (Windows Settings)
+Press Windows key → type BitLocker → open Manage BitLocker.
+Under the drive that is encrypted, click Back up your recovery key.
+Choose one of the available options:
+Save to your Microsoft account
+Save to a USB flash drive
+Save to a file
+Print the recovery key
+Follow the prompts to complete the backup.
+
+`)">
+  16. Bitlocker key Backup
+</div>
+
+ <div class="step" onclick="copyToClipboard(`
+
+There are no service center's but only HP authorized drop off points where you can drop the unit for few days and later go back and pick it up after it is fixed.
+ 
+You can find the drop off point details here:
+ 
+https://support.hp.com/my-en/document/c02986448
+ 
+`)">
+  17. Drop off points.
+</div>   
+    
 <script>
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
@@ -210,4 +241,5 @@ function copyToClipboard(text) {
 
 
 </body>
+
 </html>
