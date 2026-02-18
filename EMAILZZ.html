@@ -8,7 +8,7 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background-color: pink; /* Pink background */
+            background-color: pink;
             color: #333;
             display: flex;
             flex-direction: column;
@@ -20,6 +20,7 @@
             flex-wrap: wrap;
             justify-content: center;
             margin-bottom: 20px;
+            max-width: 100%;
         }
 
         button {
@@ -55,6 +56,7 @@
         .textarea-wrapper {
             position: relative;
             width: 80%;
+            max-width: 900px;
         }
 
         textarea {
@@ -68,22 +70,41 @@
             font-size: 14px;
             line-height: 1.6;
             box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            resize: vertical;
         }
 
         .copy-button {
             position: absolute;
-            top: 5px;
-            right: 5px;
+            top: 10px;
+            right: 10px;
             background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 8px 12px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
             font-size: 12px;
             cursor: pointer;
             border-radius: 5px;
+            transition: background-color 0.3s;
+            z-index: 10;
+        }
+
+        .copy-button:hover {
+            background-color: #45a049;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .textarea-wrapper {
+                width: 95%;
+            }
         }
     </style>
 </head>
@@ -114,41 +135,71 @@
 
     <script>
         const emailTemplates = {
-            partAvailability: `Hi leads,\n\nRequesting your assistance in checking the Part Availability for Below details\n\nProduct Number:\nSerial Number:\nBase country:\nCurrent Country:\nPart required :\nPart number:\nPart description:\nReason :\n\nRegards,`,
-            catalogError: `Hi Leads,\n\nRequesting your assistance with the Catalog error.\n\nPFA screenshot and Details below\n\n1. Case ID :\n2. Product # :\n3. Serial # :\n4. MO # (just in case it was created) :\n5. Part # :\n6. Product :\n7. HWPC Code :\n8. IW/OOW : OOW\n9. Order country or sales org:\n\nRegards,`,
+            partAvailability: `Hi leads,\n\nRequesting your assistance in checking the Part Availability for Below details\n\nProduct Number:\nSerial Number:\nBase country:\nCurrent Country:\nPart required:\nPart number:\nPart description:\nReason:\n\nRegards,`,
+            
+            catalogError: `Hi Leads,\n\nRequesting your assistance with the Catalog error.\n\nPFA screenshot and Details below\n\n1. Case ID:\n2. Product #:\n3. Serial #:\n4. MO # (just in case it was created):\n5. Part #:\n6. Product:\n7. HWPC Code:\n8. IW/OOW: OOW\n9. Order country or sales org:\n\nRegards,`,
+            
             warrantyUpdate: `Hi Leads,\n\nI'm reaching out to request your assistance with updating the warranty information for the referenced case. Please find the relevant invoice attached for your review and processing.\n\nDOP as per Invoice:\n\nThank you for your prompt attention to this matter.\n\nRegards,`,
+            
             carepackUpdate: `Hi Team,\n\nI'm reaching out to request your assistance with updating the Carepack information for the referenced case. Please find the relevant invoice attached for your review and Serial Number below.\n\nSerial Number:\n\nThank you for your prompt attention to this matter.\n\nRegards,`,
-            EMT: `Hi Team,\n \nGreetings for the day!\n\n1. Customer Name:\n2. Customer Phone number:\n3. Customer Email address:\n4. Agent Email address:\n5. Mentor Email address:\n6. Country:\n \nProduct Information\n \n1. Model:\n2. Serial Number:\n3. Product Number:\n4. Docking station /Port replicator Model:\n5. Total Install base:\n \n6. Bios version:\n \n7. Operating System and Image Source:\n \n8. Number of units affected:\n \n9. Service Pack:\n \n10. Memory specs:\n \n11. AC adapter details:\n \n12: If Ext monitor/projector related mention make and model\n \n13. Will the customer send unit for capture if needed:\n \n14. If driver related pls mention driver version:\n \n15. If software related pls mention software make and version:\n \n\nIssue Description :\n===================\nTroubleshooting steps to replicate issue (as provided by the end user) :\n\n====================================================\nKindly advise.\nRegards,`,
+            
+            EMT: `Hi Team,\n\nGreetings for the day!\n\n1. Customer Name:\n2. Customer Phone number:\n3. Customer Email address:\n4. Agent Email address:\n5. Mentor Email address:\n6. Country:\n\nProduct Information\n\n1. Model:\n2. Serial Number:\n3. Product Number:\n4. Docking station/Port replicator Model:\n5. Total Install base:\n6. Bios version:\n7. Operating System and Image Source:\n8. Number of units affected:\n9. Service Pack:\n10. Memory specs:\n11. AC adapter details:\n12. If Ext monitor/projector related mention make and model:\n13. Will the customer send unit for capture if needed:\n14. If driver related pls mention driver version:\n15. If software related pls mention software make and version:\n\nIssue Description:\nTroubleshooting steps to replicate issue (as provided by the end user):\n\nKindly advise.\nRegards,`,
+            
             RPLMismatch: `Dear Team,\n\nI hope this email finds you well.\n\nI am writing in reference to the subject case, which involves an RPL data mismatch. Furthermore, the product in question is unable to pass the GT check.\n\nThe details for your reference are as follows:\n\nCase Number:\nSerial Number:\nProduct Number:\nCountry:\nFull name of Account:\nOrganization:\n\nCould you please examine this case and provide guidance on how to proceed?\n\nWe appreciate your support and look forward to your response.\n\nSincerely,`,
+            
             warrantyUpdated: `Dear CX Name,\n\nI hope this email finds you well.\n\nThis email confirms that we have successfully updated the warranty for *** Model ***, with the serial number *** SN ***, as per your recent request.\n\nAs requested, we have updated the warranty information for your notebook to align with the details on the invoice you shared. You can view the corrected warranty details by following this link:\n\n**** ADD THE LINK HERE ****\n\nKindly review the updated information. If the details are not reflecting correctly or if any further corrections are required, please reply to this email, and we will be happy to assist.\n\nYour satisfaction is our priority, and we are committed to providing reliable products and dependable service.\n\nThank you for choosing HP.\n\nBest regards,`,
-            statusCheck: `Hi Team,\n\nI'm reaching out to request a brief update on the status of repair for subjected case.\n\ncustomer has contacted support to inquire about the estimated time of completion.\n\nCould you please provide a quick update on the progress and an estimated timeframe for when the repair will be finished?\n\nThank you for your time and attention to this matter.\n\nRegards,`,
-            caseFollowUp: `Dear [Customer Name],\n\nI hope this email finds you well.\n\nWe noticed that you recently contacted our support team via WhatsApp regarding an issue with your PC, and we had created case to track your inquiry.\n\nHowever, we haven't received a response to our last message on the WhatsApp chat, and we wanted to check in on the status of your issue.\n\nCould you please let us know:\n\nHas your PC issue been resolved?\n\nDo you still require technical assistance from our team?\n\nIf you need any further support, please feel free to continue the conversation on the same WhatsApp chat where we left off. Our support team will be happy to assist you and help resolve any remaining concerns.\n\nWe value your business and want to ensure you have the best possible experience with your device.\n\nThank you for choosing HP, and we look forward to hearing from you soon.\n\nBest regards,`,
+            
+            statusCheck: `Hi Team,\n\nI'm reaching out to request a brief update on the status of repair for subjected case.\n\nCustomer has contacted support to inquire about the estimated time of completion.\n\nCould you please provide a quick update on the progress and an estimated timeframe for when the repair will be finished?\n\nThank you for your time and attention to this matter.\n\nRegards,`,
+            
+            caseFollowUp: `Dear [Customer Name],\n\nI hope this email finds you well.\n\nWe noticed that you recently contacted our support team via WhatsApp regarding an issue with your PC, and we had created case to track your inquiry.\n\nHowever, we haven't received a response to our last message on the WhatsApp chat, and we wanted to check in on the status of your issue.\n\nCould you please let us know:\n\n- Has your PC issue been resolved?\n- Do you still require technical assistance from our team?\n\nIf you need any further support, please feel free to continue the conversation on the same WhatsApp chat where we left off. Our support team will be happy to assist you and help resolve any remaining concerns.\n\nWe value your business and want to ensure you have the best possible experience with your device.\n\nThank you for choosing HP, and we look forward to hearing from you soon.\n\nBest regards,`,
+            
             caseFollowUp2: `Dear [Customer Name],\n\nI hope you're doing well.\n\nThis is a follow-up to our previous email regarding your PC support case.\n\nWe understand that you may be busy, and we want to respect your time while ensuring you receive the assistance you need.\n\nSince we haven't heard back from you yet, we wanted to reach out once more to see if you still need assistance with your PC issue.\n\nPlease note: If we don't hear back from you within the next 24 hours, we will proceed to temporarily close this case.\n\nHowever, please don't worry - If you still need assistance with your PC issue at any time in the future, simply reach out to us and reference case number. We'll be more than happy to reopen your case and continue providing support exactly where we left off.\n\nWe truly appreciate your business and remain committed to helping you resolve any technical issues you may have.\n\nThank you for your understanding.\n\nWarm regards,`,
+            
             quoteSnooze: `Dear [Customer Name],\n\nI hope this email finds you well.\n\nThis is a friendly reminder regarding the quotation we sent you for Service on your Unit.\n\nWe wanted to check if you've had a chance to review the quotation and if you need any clarification or additional information to help with your decision.\n\nQuotation expires:\n\nIf you wish to proceed, please reply with your approval.\n\nShould you have any questions about the quotation or need technical clarification, please don't hesitate to reach out to us.\n\nWe're here to help and look forward to your response.\n\nBest regards,`,
-            helpDeskCU: `Hi Team,\n\nI hope this email finds you well.\n\nWe have received a customer inquiry through WhatsApp Support requesting assistance. Upon reviewing their account, I have confirmed that this customer currently has active Helpdesk Support services.\n\nCustomer Details:\n\nFull Name:\nPrimary Contact Number:\nEmail Address:\nPrimary Phone:\nAlternate Phone:\nProduct Number:\nSerial Number:\nCountry:\n\nGiven their active Helpdesk support status, I kindly request that you reach out to this customer at your earliest convenience to provide the necessary assistance.\n\nThank you for your attention to this matter.\n\nBest regards,`
-            Qtemp: `Country:\nSpecial: TRADE\nCoverage: 3BD\nService Type:\n\nPart Recommended:\nPart Number:\nPart Quantity:\nDescription:\n\nParts Available:\n\nCustomer First Name and Last Name:\nCustomer Phone No:\nCustomer Email:\nCustomer Billing Address:`,
-       };
+            
+            helpDeskCU: `Hi Team,\n\nI hope this email finds you well.\n\nWe have received a customer inquiry through WhatsApp Support requesting assistance. Upon reviewing their account, I have confirmed that this customer currently has active Helpdesk Support services.\n\nCustomer Details:\n\nFull Name:\nPrimary Contact Number:\nEmail Address:\nPrimary Phone:\nAlternate Phone:\nProduct Number:\nSerial Number:\nCountry:\n\nGiven their active Helpdesk support status, I kindly request that you reach out to this customer at your earliest convenience to provide the necessary assistance.\n\nThank you for your attention to this matter.\n\nBest regards,`,
+            
+            Qtemp: `Country:\nSpecial: TRADE\nCoverage: 3BD\nService Type:\n\nPart Recommended:\nPart Number:\nPart Quantity:\nDescription:\n\nParts Available:\n\nCustomer First Name and Last Name:\nCustomer Phone No:\nCustomer Email:\nCustomer Billing Address:`
+        };
 
         const buttons = document.querySelectorAll('[data-template]');
         const textarea = document.getElementById('emailContent');
 
         buttons.forEach(button => {
-            button.addEventListener('click', () => {
-                const templateName = button.dataset.template;
-                textarea.value = emailTemplates[templateName] || 'Template not found.';
+            button.addEventListener('click', function() {
+                const templateName = this.dataset.template;
+                if (emailTemplates[templateName]) {
+                    textarea.value = emailTemplates[templateName];
+                } else {
+                    textarea.value = 'Template not found.';
+                }
             });
         });
 
         function copyToClipboard() {
+            const textarea = document.getElementById('emailContent');
+            
+            if (textarea.value.trim() === '') {
+                alert('Nothing to copy! Please select a template first.');
+                return;
+            }
+            
             textarea.select();
-            document.execCommand("copy");
-            alert("Copied to clipboard!");
+            try {
+                document.execCommand('copy');
+                alert('Copied to clipboard!');
+            } catch (err) {
+                alert('Failed to copy. Please try again.');
+            }
         }
 
         document.addEventListener('keydown', function(event) {
             if (event.ctrlKey && event.key === 'c') {
-                copyToClipboard();
-                event.preventDefault(); // Prevent the browser's default copy action
+                const textarea = document.getElementById('emailContent');
+                if (textarea === document.activeElement) {
+                    copyToClipboard();
+                    event.preventDefault();
+                }
             }
         });
     </script>
@@ -156,6 +207,3 @@
 </body>
 
 </html>
-
-
-
