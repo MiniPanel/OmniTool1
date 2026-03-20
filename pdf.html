@@ -164,6 +164,59 @@
         .merge-btn:disabled { background: #c4a89a; cursor: not-allowed; }
 
         #merge-pdf-btn { display: none; }
+
+        .pdf-file-list {
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .pdf-file-list.visible { display: flex; }
+
+        .pdf-file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255,255,255,0.5);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 13px;
+            color: #3b1f14;
+            font-weight: 500;
+        }
+        .pdf-file-item .pdf-icon {
+            font-size: 18px;
+            margin-right: 8px;
+        }
+        .pdf-file-item .pdf-name {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .pdf-file-item .pdf-remove {
+            background: #c0392b;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-left: 8px;
+        }
+        .pdf-file-item .pdf-remove:hover { background: #a93226; }
+
+        .merge-actions {
+            display: none;
+            justify-content: center;
+            margin-top: 8px;
+        }
+        .merge-actions.visible { display: flex; }
     </style>
 </head>
 <body>
@@ -181,14 +234,18 @@
             </div>
         </div>
 
-        <button id="merge-pdf-btn" class="merge-btn">Merge PDFs</button>
-
         <div id="dropzone" class="dropzone">Drag &amp; Drop images here</div>
         <div id="preview-list" class="preview-list"></div>
 
         <div id="actions" class="actions" style="display:none">
             <button id="pdf-btn" class="pdf-btn">Create PDF</button>
             <button id="clear-btn" class="clear-btn">Clear All</button>
+        </div>
+
+        <div id="pdf-file-list" class="pdf-file-list"></div>
+
+        <div class="merge-actions" id="merge-actions">
+            <button id="merge-pdf-btn" class="merge-btn">Merge PDFs</button>
         </div>
     </div>
 
@@ -350,9 +407,38 @@
             addImageFiles(Array.from(e.dataTransfer.files));
         });
 
+        const pdfFileList = document.getElementById('pdf-file-list');
+        const mergeActions = document.getElementById('merge-actions');
+
+        function renderPdfList() {
+            pdfFileList.innerHTML = '';
+            if (pdfFiles.length === 0) {
+                pdfFileList.classList.remove('visible');
+                mergeActions.classList.remove('visible');
+                return;
+            }
+            pdfFileList.classList.add('visible');
+            mergeActions.classList.add('visible');
+            pdfFiles.forEach((file, idx) => {
+                const item = document.createElement('div');
+                item.className = 'pdf-file-item';
+                item.innerHTML = `<span class="pdf-icon">&#128196;</span><span class="pdf-name">${file.name}</span>`;
+                const removeBtn = document.createElement('button');
+                removeBtn.className = 'pdf-remove';
+                removeBtn.textContent = '×';
+                removeBtn.onclick = () => {
+                    pdfFiles.splice(idx, 1);
+                    renderPdfList();
+                };
+                item.appendChild(removeBtn);
+                pdfFileList.appendChild(item);
+            });
+        }
+
         pdfMergeInput.addEventListener('change', e => {
-            pdfFiles = Array.from(e.target.files);
-            mergePdfBtn.style.display = pdfFiles.length > 0 ? 'inline-block' : 'none';
+            pdfFiles = pdfFiles.concat(Array.from(e.target.files));
+            pdfMergeInput.value = '';
+            renderPdfList();
         });
 
         mergePdfBtn.onclick = async () => {
@@ -369,6 +455,8 @@
             a.click();
             mergePdfBtn.disabled = false;
             mergePdfBtn.textContent = 'Merge PDFs';
+            pdfFiles = [];
+            renderPdfList();
         };
 
         async function mergePDFs(files) {
