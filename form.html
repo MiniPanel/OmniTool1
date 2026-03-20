@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PSIR Generator</title>
+
+<script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: pink;
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+    }
+
+    h1 { color: #333; }
+
+    .button-62 {
+        background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+        border: 0;
+        border-radius: 12px;
+        color: #FFFFFF;
+        cursor: pointer;
+        display: inline-block;
+        font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 2.5;
+        outline: transparent;
+        padding: 0 1rem;
+        text-align: center;
+        text-decoration: none;
+        transition: box-shadow 0.2s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        white-space: nowrap;
+        margin: 10px;
+        width: 320px;
+        box-sizing: border-box;
+    }
+
+    .button-62:not([disabled]):focus,
+    .button-62:not([disabled]):hover {
+        box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+                    -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
+                    0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
+    }
+
+    form {
+        background: white;
+        padding: 36px 40px;
+        max-width: 700px;
+        margin: 30px auto;
+        border-radius: 14px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+        text-align: left;
+    }
+
+    .form-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 28px;
+    }
+
+    .form-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #333;
+        letter-spacing: 0.5px;
+        margin: 0;
+    }
+
+    .btn-questions {
+        background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+        border: 0;
+        border-radius: 10px;
+        color: #FFFFFF;
+        cursor: pointer;
+        font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 8px 18px;
+        white-space: nowrap;
+        transition: box-shadow 0.2s ease-in-out;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .btn-questions:hover {
+        box-shadow: 0 0 0.25rem rgba(0,0,0,0.4),
+                    -0.125rem -0.125rem 1rem rgba(239,71,101,0.5),
+                    0.125rem 0.125rem 1rem rgba(255,154,90,0.5);
+    }
+
+    /* Toast notification */
+    .toast {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: #333;
+        color: #fff;
+        padding: 12px 24px;
+        border-radius: 10px;
+        font-size: 14px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s, transform 0.3s;
+        z-index: 999;
+    }
+
+    .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    .section-heading {
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #EF4765;
+        margin: 28px 0 12px;
+        padding-bottom: 6px;
+        border-bottom: 2px solid #fde8ec;
+    }
+
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+
+    label {
+        font-weight: 600;
+        font-size: 13px;
+        color: #555;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 14px;
+        font-family: Arial, sans-serif;
+        border: 1.5px solid #ddd;
+        border-radius: 8px;
+        box-sizing: border-box;
+        background: #fafafa;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        outline: none;
+    }
+
+    input:focus, textarea:focus {
+        border-color: #EF4765;
+        box-shadow: 0 0 0 3px rgba(239,71,101,0.12);
+        background: #fff;
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 90px;
+    }
+
+    .button-wrap {
+        text-align: center;
+        margin-top: 28px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="toast" id="toast">✅ Questions copied to clipboard!</div>
+
+<form id="psirForm">
+
+    <div class="form-header">
+        <div class="form-title">PSIR Escalation Form</div>
+        <button type="button" class="btn-questions" onclick="copyQuestions()">
+            📋 Questions
+        </button>
+    </div>
+
+    <div class="section-heading">Case Information</div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label>Elevated Case #</label>
+            <input name="case_id" placeholder="e.g. CASE-00123">
+        </div>
+        <div class="form-group">
+            <label>Incident Date</label>
+            <input name="incident_date" type="date">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Company &amp; Customer Name</label>
+        <input name="company" placeholder="e.g. Acme Corp – John Doe">
+    </div>
+
+    <div class="form-group">
+        <label>Address</label>
+        <input name="address" placeholder="Street address">
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label>Country</label>
+            <input name="country" placeholder="e.g. United States">
+        </div>
+        <div class="form-group">
+            <label>Phone</label>
+            <input name="phone" placeholder="+1 000-000-0000">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Email</label>
+        <input name="email" type="email" placeholder="customer@example.com">
+    </div>
+
+    <div class="section-heading">Product Information</div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label>Product Number</label>
+            <input name="product_number" placeholder="e.g. AB1234#ABA">
+        </div>
+        <div class="form-group">
+            <label>Serial Number</label>
+            <input name="serial_number" placeholder="e.g. 5CD1234567">
+        </div>
+    </div>
+
+    <div class="section-heading">Incident Details</div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label>Personal Injury</label>
+            <input name="personal_injury" placeholder="Describe any injuries">
+        </div>
+        <div class="form-group">
+            <label>Property Damage</label>
+            <input name="property_damage" placeholder="Describe any damage">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Customer Statement</label>
+        <textarea name="customer_statement" placeholder="Customer's account of the incident..."></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Description of Product Setup</label>
+        <textarea name="product_setup" placeholder="How was the product set up at the time..."></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Description of Product Environment</label>
+        <textarea name="product_environment" placeholder="Where and how was the product being used..."></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Description of Weather</label>
+        <input name="weather" placeholder="e.g. Rainy, humid, hot summer...">
+    </div>
+
+    <div class="button-wrap">
+        <button type="button" class="button-62" onclick="generateExcel()">Download Excel</button>
+    </div>
+
+</form>
+
+<script>
+
+function copyQuestions() {
+    const text = `please do help me with the below questions
+
+1. Kindly confirm if there were any personal Injury that had occurred?
+2. Kindly confirm if there were any Property damage that had occurred?
+3. Please do give us a statement as to how the issue had occurred?
+4. Please do help us with a description of Product Setup.
+5. Please do help us with a description of Product Environment.
+6. Please do tell us what was the Weather at Time of Incident.`;
+
+    navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById("toast");
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 2500);
+    }).catch(() => {
+        // Fallback for browsers that block clipboard
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        const toast = document.getElementById("toast");
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 2500);
+    });
+}
+
+async function generateExcel(){
+
+const data = new FormData(document.getElementById("psirForm"));
+
+const workbook = new ExcelJS.Workbook();
+const sheet = workbook.addWorksheet("PSIR");
+
+sheet.columns = [
+{width:5},
+{width:5},
+{width:75},
+{width:75}
+];
+
+const border = {
+top:{style:"thin"},
+left:{style:"thin"},
+bottom:{style:"thin"},
+right:{style:"thin"}
+};
+
+function style(cell){
+cell.border = border;
+cell.alignment = {wrapText:true,vertical:"top"};
+}
+
+function row(r,c,text){
+const cell = sheet.getCell(c+r);
+cell.value = text;
+style(cell);
+style(sheet.getCell("D"+r));
+}
+
+sheet.getCell("C2").value="PSIR - Potential Safety Incident Report for Commercial & Consumer units";
+sheet.getCell("C2").font={bold:true};
+
+row(4,"C","Information Required");
+row(4,"D","Information Gathered");
+
+row(5,"C","Elevated Case #");
+row(6,"C","Company & Customer Name:");
+row(7,"C","Incident Date:");
+row(8,"C","Address:");
+row(9,"C","Country:");
+row(10,"C","Email");
+row(11,"C","Phone");
+
+row(13,"C","Product Information");
+
+row(14,"C","Product Number:");
+row(15,"C","Serial Number:");
+row(16,"C","Personal Injury:");
+row(17,"C","Property Damage:");
+row(18,"C","Customer Statement");
+
+row(20,"C","Description of Product Setup");
+row(24,"C","Description of Product Environment");
+row(26,"C","Description of Weather at the time of the incident:");
+
+sheet.getCell("D5").value=data.get("case_id");
+sheet.getCell("D6").value=data.get("company");
+sheet.getCell("D7").value=data.get("incident_date");
+sheet.getCell("D8").value=data.get("address");
+sheet.getCell("D9").value=data.get("country");
+sheet.getCell("D10").value=data.get("email");
+sheet.getCell("D11").value=data.get("phone");
+sheet.getCell("D14").value=data.get("product_number");
+sheet.getCell("D15").value=data.get("serial_number");
+sheet.getCell("D16").value=data.get("personal_injury");
+sheet.getCell("D17").value=data.get("property_damage");
+sheet.getCell("D18").value=data.get("customer_statement");
+sheet.getCell("D20").value=data.get("product_setup");
+sheet.getCell("D24").value=data.get("product_environment");
+sheet.getCell("D26").value=data.get("weather");
+
+sheet.getRow(18).height=60;
+sheet.getRow(20).height=80;
+sheet.getRow(24).height=80;
+
+row(28,"C","(Rainy, humid, moist, hot summer, etc)");
+row(30,"C","Additional Notes: (Is customer looking for FA or Only service)");
+const c31 = sheet.getCell("C31");
+c31.value = {
+  richText: [
+    {text:"Note: Make sure to mention ", font:{color:{argb:"FF000000"}}},
+    {text:"HP CONFIDENTIAL", font:{color:{argb:"FFFF0000"}, bold:true}},
+    {text:" in all the pulse mails.", font:{color:{argb:"FF000000"}}}
+  ]
+};
+style(c31);
+
+const c32 = sheet.getCell("C32");
+c32.value = "Refer to Training Content in Helping Hand Teams Channel";
+c32.font = {color:{argb:"FFFF0000"}};
+style(c32);
+
+row(33,"C","Images to be captures and shared one to one - Refer the attached pdf file as reference");
+row(34,"C","Highlight the affected area with a red circle in the picture");
+row(35,"C","Images showing the Top view with Lid closed");
+row(36,"C","Images showing the Top view with Lid open (covering display and top cover)");
+row(37,"C","Images showing the Base Enclosure");
+row(38,"C","Images of the battery (Front, Back, Left & Right - for external battery models only)");
+row(39,"C","Images of the Battery of CT number and Part # (should be readable enough) - for external battery models only");
+row(40,"C","Images of the AC Adapter of CT number and Part # (should be readable enough)");
+row(41,"C","Images of the Power Cable of CT number and Part # (should be readable enough)");
+
+const buffer = await workbook.xlsx.writeBuffer();
+
+const blob = new Blob([buffer],{
+type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+});
+
+const link=document.createElement("a");
+link.href=URL.createObjectURL(blob);
+link.download="PSIR_Report.xlsx";
+link.click();
+
+}
+
+</script>
+
+</body>
+</html>
