@@ -45,20 +45,27 @@
         }
 
         .upload-label {
-            background: #3b1f14;
-            color: #fff;
-            padding: 10px 22px;
-            border-radius: 10px;
+            background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+            border: 0;
+            border-radius: 12px;
+            color: #FFFFFF;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
+            font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 2.5;
+            padding: 0 1rem;
+            text-align: center;
+            transition: box-shadow 0.2s ease-in-out;
+            white-space: nowrap;
+            width: 220px;
+            box-sizing: border-box;
             display: inline-block;
-            transition: opacity 0.2s;
         }
-        .upload-label:hover { opacity: 0.85; }
-
-        .upload-label.purple {
-            background: #6c3a8c;
+        .upload-label:hover {
+            box-shadow: 0 0 0.25rem rgba(0,0,0,0.5),
+                        -0.125rem -0.125rem 1rem rgba(239,71,101,0.5),
+                        0.125rem 0.125rem 1rem rgba(255,154,90,0.5);
         }
 
         .dropzone {
@@ -144,26 +151,41 @@
         }
 
         .pdf-btn, .clear-btn, .merge-btn {
-            padding: 10px 28px;
-            border: none;
-            border-radius: 10px;
+            background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+            border: 0;
+            border-radius: 12px;
+            color: #FFFFFF;
             cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            transition: opacity 0.2s, transform 0.1s;
+            font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 2.5;
+            outline: transparent;
+            padding: 0 1rem;
+            text-align: center;
+            text-decoration: none;
+            transition: box-shadow 0.2s ease-in-out;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            white-space: nowrap;
+            width: 220px;
+            box-sizing: border-box;
         }
-        .pdf-btn { background: #3b1f14; color: #fff; }
-        .pdf-btn:hover:not(:disabled) { opacity: 0.85; }
-        .pdf-btn:disabled { background: #c4a89a; cursor: not-allowed; }
-
-        .clear-btn { background: rgba(255,255,255,0.5); color: #3b1f14; border: 1.5px solid #b5648a; }
-        .clear-btn:hover { background: rgba(255,255,255,0.75); }
-
-        .merge-btn { background: #6c3a8c; color: #fff; }
-        .merge-btn:hover:not(:disabled) { opacity: 0.85; }
-        .merge-btn:disabled { background: #c4a89a; cursor: not-allowed; }
-
-        #merge-pdf-btn { display: none; }
+        .pdf-btn:not([disabled]):hover, .pdf-btn:not([disabled]):focus,
+        .clear-btn:not([disabled]):hover, .clear-btn:not([disabled]):focus,
+        .merge-btn:not([disabled]):hover, .merge-btn:not([disabled]):focus {
+            box-shadow: 0 0 0.25rem rgba(0,0,0,0.5),
+                        -0.125rem -0.125rem 1rem rgba(239,71,101,0.5),
+                        0.125rem 0.125rem 1rem rgba(255,154,90,0.5);
+        }
+        .pdf-btn:disabled, .merge-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .clear-btn {
+            background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+        }
 
         .pdf-file-list {
             display: none;
