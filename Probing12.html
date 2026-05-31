@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Probing Questions</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #f4f4f7;
+            padding: 20px 24px 40px;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid #e0e0e8;
+        }
+
+        .page-header i { font-size: 18px; color: #a78bfa; }
+
+        .page-header h1 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111118;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .btn-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .btn-main {
+            background: linear-gradient(135deg, #EF4765, #FF9A5A);
+            border: none;
+            border-radius: 7px;
+            color: #fff;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            padding: 9px 14px;
+            text-align: left;
+            transition: opacity 0.15s, box-shadow 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            line-height: 1.3;
+        }
+
+        .btn-main:hover {
+            opacity: 0.92;
+            box-shadow: 0 2px 12px rgba(239, 71, 101, 0.35);
+        }
+
+        .btn-main.active {
+            outline: 2px solid #fff;
+            outline-offset: -3px;
+        }
+
+        .btn-main i { font-size: 13px; flex-shrink: 0; opacity: 0.9; }
+
+        .btn-num {
+            font-size: 10px;
+            opacity: 0.75;
+            flex-shrink: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            padding: 1px 5px;
+            font-weight: 700;
+        }
+
+        /* Output card */
+        .output-card {
+            display: none;
+            background: #fff;
+            border: 1px solid #e0e0e8;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .output-card.visible { display: block; }
+
+        .output-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            border-bottom: 1px solid #e0e0e8;
+            background: #fafafa;
+        }
+
+        .output-title {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #111118;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .output-title i { color: #a78bfa; font-size: 14px; }
+
+        .copy-btn {
+            background: linear-gradient(135deg, #EF4765, #FF9A5A);
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 5px 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: opacity 0.15s;
+        }
+
+        .copy-btn:hover { opacity: 0.88; }
+        .copy-btn i { font-size: 12px; }
+
+        textarea {
+            width: 100%;
+            min-height: 340px;
+            padding: 16px;
+            border: none;
+            outline: none;
+            font-size: 12.5px;
+            line-height: 1.75;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            color: #111118;
+            background: #fff;
+            resize: vertical;
+            display: block;
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #111118;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 9px 16px;
+            border-radius: 7px;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.2s, transform 0.2s;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 999;
+        }
+
+        #toast.show { opacity: 1; transform: translateY(0); }
+        #toast i { color: #4ade80; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<div class="page-header">
+    <i class="ti ti-list-search"></i>
+    <h1>Probing Questions</h1>
+</div>
+
+<div class="btn-grid">
+    <button class="btn-main" onclick="show('NoPower', this)"><i class="ti ti-bolt-off"></i><span class="btn-num">01</span> No Power</button>
+    <button class="btn-main" onclick="show('NoBoot', this)"><i class="ti ti-device-laptop-off"></i><span class="btn-num">02</span> No Boot</button>
+    <button class="btn-main" onclick="show('Audio', this)"><i class="ti ti-volume-off"></i><span class="btn-num">03</span> Audio</button>
+    <button class="btn-main" onclick="show('Display', this)"><i class="ti ti-device-tv-off"></i><span class="btn-num">04</span> Display</button>
+    <button class="btn-main" onclick="show('Adapter', this)"><i class="ti ti-plug"></i><span class="btn-num">05</span> Adapter</button>
+    <button class="btn-main" onclick="show('Keyboard', this)"><i class="ti ti-keyboard"></i><span class="btn-num">06</span> Keyboard</button>
+    <button class="btn-main" onclick="show('Touchpad', this)"><i class="ti ti-pointer"></i><span class="btn-num">07</span> Touchpad</button>
+    <button class="btn-main" onclick="show('Ports', this)"><i class="ti ti-usb"></i><span class="btn-num">08</span> Ports</button>
+    <button class="btn-main" onclick="show('Battery', this)"><i class="ti ti-battery-off"></i><span class="btn-num">09</span> Battery</button>
+    <button class="btn-main" onclick="show('Basic', this)"><i class="ti ti-help-circle"></i><span class="btn-num">10</span> Basic-3</button>
+</div>
+
+<div class="output-card" id="outputCard">
+    <div class="output-header">
+        <div class="output-title">
+            <i class="ti ti-list-search"></i>
+            <span id="outputTitle">Probing Questions</span>
+        </div>
+        <button class="copy-btn" onclick="copyText()"><i class="ti ti-copy"></i> Copy</button>
+    </div>
+    <textarea id="outputBox" readonly placeholder="Select a category above to load probing questions..."></textarea>
+</div>
+
+<div id="toast"><i class="ti ti-check"></i> Copied to clipboard</div>
+
+<script>
+    const issues = {
+        NoPower: {
+            label: "No Power",
+            text: `NO POWER ISSUE
+
+1. May I know since when are you facing this issue?
+2. Are there any physical accidental damages or liquid spillages on the unit?
+3. Were there any hardware or software changes made prior to the issue?
+4. Did the laptop run out of battery or did it randomly shut down and not power on again?
+5. Do the lights on the keyboard light up, or is there any fan noise heard when you try to power it on?
+6. Could you confirm if the LED next to the charging port is lit when the unit is connected to the charger that was shipped with it?
+7. Have you tried a different known-good charger or outlet to rule out a power source issue?
+8. Do you see any blink codes or hear any beep sounds when you attempt to power it on?
+9. Has this laptop had any repairs or part replacements (such as the motherboard or battery) prior to this issue?`
+        },
+        NoBoot: {
+            label: "No Boot",
+            text: `NO BOOT ISSUE
+
+1. May I know since when are you facing this issue?
+2. Are there any physical accidental damages or liquid spillages on the unit?
+3. Were there any hardware or software changes made prior to the issue?
+4. Do you observe any fan noise, or are there any lights on the power button or keyboard when you power it on?
+5. When you press the power button, do you see the HP logo or spinning dots, or does the screen remain completely black?
+6. Are you able to access the BIOS (F10) or the Startup Menu (ESC) when powering on?
+7. Did any Windows or firmware updates install recently before the issue started?`
+        },
+        Audio: {
+            label: "Audio",
+            text: `AUDIO ISSUE
+
+1. Could you clarify whether there is no sound at all, or if you are hearing distorted or crackling audio?
+2. May I know since when are you facing this issue?
+3. Are there any physical accidental damages or liquid spillages on the unit?
+4. Were there any hardware or software changes or updates made prior to the issue?
+5. Is this issue happening across all applications, or only in specific ones such as YouTube, Zoom, or VLC?
+6. Does the issue occur with only the built-in speakers, or also with external speakers or headphones?
+7. Could you confirm whether the sound is muted or if the volume has been turned down?
+8. Have you checked Device Manager for any audio driver errors or warnings?
+9. Do you hear a startup chime or beep when powering on the unit?
+10. Do you have any Bluetooth devices paired that might be intercepting the sound output?`
+        },
+        Display: {
+            label: "Display",
+            text: `DISPLAY ISSUE
+
+1. Could you describe the display issue — is the screen black, flickering, distorted, or unusually dim?
+2. Could you please share an image or video of the issue for reference?
+3. May I know since when are you facing this issue?
+4. Are there any physical accidental damages or liquid spillages on the unit?
+5. Were there any hardware or software changes or updates made prior to the issue?
+6. When connected to an external monitor, does the display work correctly?
+7. Does the issue appear in the BIOS screen (F10)?
+8. Do you see the HP logo during startup, or is the screen blank from the moment you power on?`
+        },
+        Adapter: {
+            label: "Adapter",
+            text: `ADAPTER ISSUE
+
+1. May I know since when are you facing this issue?
+2. Are there any physical damages or liquid spillages on the adapter or the unit?
+3. Does the charging LED indicator turn on when the adapter is plugged in?
+4. Have you tried using a different HP-compatible adapter to see if the issue persists?
+5. Does the original adapter charge another device without any issue?
+6. Could you please share an image of the charging port on the unit?
+7. Could you also share an image of the CT number printed on the adapter?
+8. Have you noticed any unusual sounds, sparks, or smell from the adapter or port?
+9. Have you tried connecting the adapter to a different wall outlet?`
+        },
+        Keyboard: {
+            label: "Keyboard",
+            text: `KEYBOARD ISSUE
+
+1. Could you please share an image or video of the issue for reference?
+2. May I know since when are you facing this issue?
+3. Have there been any drops, impacts, or liquid spillages on the unit?
+4. Are all keys affected, or only specific ones?
+5. Is an external keyboard working fine when connected?
+6. Does the built-in keyboard respond correctly in the BIOS screen?
+7. Were there any recent driver or OS updates prior to the issue?
+8. Are the keys sticking, double-typing, or producing incorrect characters?
+9. Has the keyboard been cleaned recently?
+10. Is the keyboard backlight or LED lighting working correctly?`
+        },
+        Touchpad: {
+            label: "Touchpad",
+            text: `TOUCHPAD ISSUE
+
+1. Could you please share an image or video of the issue for reference?
+2. May I know since when are you facing this issue?
+3. Have there been any drops or liquid exposure on the unit?
+4. Is the touchpad completely unresponsive, or is it only partially working?
+5. Is an external mouse working fine when connected?
+6. Does the touchpad respond correctly in the BIOS screen?
+7. Were there any recent driver or OS updates prior to the issue?
+8. Are multi-touch gestures functioning correctly?
+9. Could you confirm whether the touchpad has been disabled via function keys or through the system settings?`
+        },
+        Ports: {
+            label: "Ports",
+            text: `PORTS ISSUE
+
+1. May I know since when are you facing this issue?
+2. Have there been any drops or liquid exposure on the unit?
+3. Which port or ports are affected, and what devices are you attempting to connect?
+4. Have you tested the same device on another laptop to confirm it works?
+5. Have you tried using multiple cables or accessories to rule out a cable issue?
+6. Is there any visible physical damage or bent pins on the affected port?
+7. Do the ports show any response, such as charging or device detection?
+8. Was there any recent repair work performed near the affected ports?`
+        },
+        Battery: {
+            label: "Battery",
+            text: `BATTERY ISSUE
+
+1. Is the battery swollen, overheating, or showing any physical abnormality?
+2. May I know since when are you facing this issue?
+3. Are there any physical damages or liquid exposure on the unit?
+4. Does the laptop work normally when connected to AC power?
+5. Does the charging LED indicator show that the unit is charging when plugged in?
+6. Have you tried using a different adapter to rule out a charging issue?
+7. Does the battery percentage drop suddenly or drain faster than expected?
+8. Does the laptop shut down unexpectedly even when the battery shows a remaining charge?`
+        },
+        Basic: {
+            label: "Basic-3",
+            text: `BASIC PROBING
+
+1. May I know since when are you facing this issue?
+2. Were there any hardware changes or software updates made to the unit prior to the issue?
+3. Are there any physical damages or liquid spillages on the unit?`
+        }
+    };
+
+    function show(key, btn) {
+        document.querySelectorAll('.btn-main').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const data = issues[key];
+        document.getElementById('outputBox').value = data.text;
+        document.getElementById('outputTitle').textContent = data.label + ' — Probing Questions';
+        document.getElementById('outputCard').classList.add('visible');
+    }
+
+    function copyText() {
+        const text = document.getElementById('outputBox').value;
+        if (!text) return;
+        navigator.clipboard.writeText(text).then(() => {
+            const t = document.getElementById('toast');
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2000);
+        });
+    }
+</script>
+
+</body>
+</html>

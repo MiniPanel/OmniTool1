@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Troubleshooting Steps</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #f4f4f7;
+            padding: 20px 24px 40px;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid #e0e0e8;
+        }
+
+        .page-header i {
+            font-size: 18px;
+            color: #a78bfa;
+        }
+
+        .page-header h1 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111118;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        /* Grid layout for buttons */
+        .btn-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        /* Main action button */
+        .btn-main {
+            background: linear-gradient(135deg, #EF4765, #FF9A5A);
+            border: none;
+            border-radius: 7px;
+            color: #fff;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            padding: 9px 14px;
+            text-align: left;
+            transition: opacity 0.15s, box-shadow 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            line-height: 1.3;
+        }
+
+        .btn-main:hover {
+            opacity: 0.92;
+            box-shadow: 0 2px 12px rgba(239, 71, 101, 0.35);
+        }
+
+        .btn-main i {
+            font-size: 13px;
+            flex-shrink: 0;
+            opacity: 0.9;
+        }
+
+        .btn-num {
+            font-size: 10px;
+            opacity: 0.75;
+            flex-shrink: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            padding: 1px 5px;
+            font-weight: 700;
+        }
+
+        /* Dropdown toggle button — spans full width */
+        .btn-dropdown-wrap {
+            grid-column: 1 / -1;
+        }
+
+        .btn-dropdown {
+            background: #ffffff;
+            border: 1px solid #e0e0e8;
+            border-radius: 7px;
+            color: #111118;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            padding: 9px 14px;
+            text-align: left;
+            transition: background 0.12s, border-color 0.12s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .btn-dropdown:hover {
+            background: #f0f0f5;
+            border-color: #c8c8d8;
+        }
+
+        .btn-dropdown i.chevron {
+            margin-left: auto;
+            font-size: 13px;
+            color: #888;
+            transition: transform 0.2s;
+        }
+
+        .btn-dropdown.open i.chevron {
+            transform: rotate(180deg);
+        }
+
+        .btn-dropdown i.icon {
+            font-size: 13px;
+            color: #a78bfa;
+            flex-shrink: 0;
+        }
+
+        .btn-num-dark {
+            font-size: 10px;
+            color: #888;
+            background: #f0f0f5;
+            border-radius: 4px;
+            padding: 1px 5px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* Substeps panel */
+        .substeps {
+            display: none;
+            grid-column: 1 / -1;
+            background: #ffffff;
+            border: 1px solid #e0e0e8;
+            border-radius: 8px;
+            padding: 10px;
+            gap: 5px;
+            display: none;
+            flex-direction: column;
+            margin-bottom: 4px;
+        }
+
+        .substeps.open {
+            display: flex;
+        }
+
+        .substep {
+            background: linear-gradient(135deg, #FF9A5A, #EF4765);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.15s, box-shadow 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            text-align: left;
+            font-family: inherit;
+            width: 100%;
+        }
+
+        .substep:hover {
+            opacity: 0.88;
+            box-shadow: 0 2px 8px rgba(239,71,101,0.3);
+        }
+
+        .substep i {
+            font-size: 12px;
+            opacity: 0.85;
+            flex-shrink: 0;
+        }
+
+        /* Section dividers */
+        .section-label {
+            grid-column: 1 / -1;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #aaa;
+            padding: 10px 2px 4px;
+        }
+
+        /* Toast */
+        #toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #111118;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 9px 16px;
+            border-radius: 7px;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.2s, transform 0.2s;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 999;
+        }
+
+        #toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #toast i { color: #4ade80; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<div class="page-header">
+    <i class="ti ti-tools"></i>
+    <h1>Troubleshooting Steps</h1>
+</div>
+
+<div class="btn-grid">
+
+    <div class="section-label">Quick actions</div>
+
+    <button class="btn-main" onclick="copy(`Please try Power Drain:\n\nThis would discharge if any static electricity is trapped inside the system, which may cause the unit not to function properly.\n\nCould you please follow the below mentioned steps:\n\n1. Shut down the unit.\n2. Disconnect all the external devices (including the power adapter).\n3. Press and hold the Power button for approximately 15-20 seconds.\n\nAfter 2-3 minutes, Power on the unit and check.\n\nPlease try the above step`)">
+        <i class="ti ti-bolt"></i><span class="btn-num">01</span> Power Drain
+    </button>
+
+    <button class="btn-main" onclick="copy('Please try BIOS recovery:\n\n1. Switch off the system. (Make sure that the unit is plugged in to the AC adaptor.)\n\n2. Press and hold the Windows + B keys, and then simultaneously press the power button.\n\n3. After 2 to 3 seconds, continue to press and hold the Windows + B keys, but release the power button.\n\nYou might hear a series of beeps.\n\nPlease try the above step.')">
+        <i class="ti ti-refresh"></i><span class="btn-num">02</span> BIOS Recovery
+    </button>
+
+    <button class="btn-main" onclick="copy(`Please try CMOS reset:\n\n1. Switch off the system.\n2. Press and hold the Windows + V keys, and then simultaneously press and hold the power button.\n3. When the CMOS Reset screen displays or you hear beeping sounds, release the Windows + V keys.\n4. Press enter to restart the computer.\n\nPlease try the above step exactly as mentioned!`)">
+        <i class="ti ti-cpu"></i><span class="btn-num">03</span> CMOS Reset
+    </button>
+
+    <button class="btn-main" onclick="copy(`Please try to find the Serial number & Product number:\n\nSome products utilize the keyboard shortcut 'Fn + Esc'; the product information will appear after a short delay.\n\nIf that doesn't work, this information can also be found on your barcode stickers, which may be located behind the battery.\n\nHere is a reference video https://www.youtube.com/watch?v=_N8BfdCvMRg\nand the link https://support.hp.com/in-en/document/ish_2039298-1862169-16`)">
+        <i class="ti ti-barcode"></i><span class="btn-num">04</span> Find Serial Number
+    </button>
+
+    <button class="btn-main" onclick="copy(`Please follow these steps to boot into BIOS:\n\nStep 1: Unit should be in shutdown state.\nStep 2: Press the power button and press the 'esc' key repeatedly.\nStep 3: Once you are in the Boot menu, press F10 to enter BIOS.`)">
+        <i class="ti ti-settings"></i><span class="btn-num">05</span> Boot into BIOS
+    </button>
+
+    <!-- UEFI Component dropdown -->
+    <div class="btn-dropdown-wrap">
+        <button class="btn-dropdown" onclick="toggleDropdown('uefi', this)">
+            <i class="ti ti-circuit-board icon"></i>
+            <span class="btn-num-dark">06</span> UEFI Component Test
+            <i class="ti ti-chevron-down chevron"></i>
+        </button>
+    </div>
+    <div id="uefi" class="substeps" style="grid-column:1/-1">
+        <button class="substep" onclick="copy(`Please follow these steps for System Board:\n\nStep 1: Unit should be in shutdown state.\nStep 2: Press the power button and press the 'esc' key repeatedly.\nStep 3: Once you are in the Boot menu, Press F2 to enter UEFI.\nStep 4: Select COMPONENT TEST and select system board.\nStep 5: Select and quick test.\n\nPlease follow the above steps. Once completed, please share an image of the test result.`)"><i class="ti ti-circuit-board"></i>6.1 System Board</button>
+        <button class="substep" onclick="copy(`Please follow these steps for Wireless Module:\n\nStep 1: Unit should be in shutdown state.\nStep 2: Press the power button and press the 'esc' key repeatedly.\nStep 3: Once you are in the Boot menu, Press F2 to enter UEFI.\nStep 4: Select COMPONENT TEST and select wireless module.\nStep 5: Select and quick test.\n\nPlease follow the above steps. Once completed, please share an image of the test result.`)"><i class="ti ti-wifi"></i>6.2 Wireless Module</button>
+        <button class="substep" onclick="copy(`Please follow these steps for Battery:\n\nStep 1: Unit should be in shutdown state.\nStep 2: Press the power button and press the 'esc' key repeatedly.\nStep 3: Once you are in the Boot menu, Press F2 to enter UEFI.\nStep 4: Select COMPONENT TEST and select power and choose battery.\nStep 5: Select and quick test.\n\nPlease follow the above steps. Once completed, please share an image of the test result.`)"><i class="ti ti-battery"></i>6.3 Battery</button>
+        <button class="substep" onclick="copy(`Please follow these steps for Adapter:\n\nStep 1: Unit should be in shutdown state.\nStep 2: Press the power button and press the 'esc' key repeatedly.\nStep 3: Once you are in the Boot menu, Press F2 to enter UEFI.\nStep 4: Select COMPONENT TEST and select power and choose Adapter.\nStep 5: Select and quick test.\n\nPlease follow the above steps. Once completed, please share an image of the test result.`)"><i class="ti ti-plug"></i>6.4 Adapter</button>
+        <button class="substep" onclick="copy(`Please follow these steps for Speaker:\n\nStep 1: Unit should be in shutdown state.\nStep 2: Press the power button and press the 'esc' key repeatedly.\nStep 3: Once you are in the Boot menu, Press F2 to enter UEFI.\nStep 4: Select COMPONENT TEST and select Audio.\nStep 5: Select and quick test.\n\nPlease follow the above steps. Once completed, please share an image of the test result.`)"><i class="ti ti-volume"></i>6.5 Speaker</button>
+        <button class="substep" onclick="copy(`Please follow these steps for Microphone:\n\nStep 1: Unit should be in shutdown state.\nStep 2: Press the power button and press the 'esc' key repeatedly.\nStep 3: Once you are in the Boot menu, Press F2 to enter UEFI.\nStep 4: Select COMPONENT TEST and select microphone.\nStep 5: Select and quick test.\n\nPlease follow the above steps. Once completed, please share an image of the test result.`)"><i class="ti ti-microphone"></i>6.6 Microphone</button>
+        <button class="substep" onclick="copy(`Please follow these steps for Touchpad:\n\nStep 1: Unit should be in shutdown state.\nStep 2: Press the power button and press the 'esc' key repeatedly.\nStep 3: Once you are in the Boot menu, Press F2 to enter UEFI.\nStep 4: Select COMPONENT TEST and select touchpad.\nStep 5: Select and quick test.\n\nPlease follow the above steps. Once completed, please share an image of the test result.`)"><i class="ti ti-pointer"></i>6.7 Touchpad</button>
+        <button class="substep" onclick="copy(`Please follow these steps for Keyboard:\n\nStep 1: Unit should be in shutdown state.\nStep 2: Press the power button and press the 'esc' key repeatedly.\nStep 3: Once you are in the Boot menu, Press F2 to enter UEFI.\nStep 4: Select COMPONENT TEST and select keyboard.\nStep 5: Select and quick test.\n\nPlease follow the above steps. Once completed, please share an image of the test result.`)"><i class="ti ti-keyboard"></i>6.8 Keyboard</button>
+        <button class="substep" onclick="copy(`Please follow these steps for SSD/HDD:\n\nStep 1: Unit should be in shutdown state.\nStep 2: Press the power button and press the 'esc' key repeatedly.\nStep 3: Once you are in the Boot menu, Press F2 to enter UEFI.\nStep 4: Select COMPONENT TEST and select storage and select SSD.\nStep 5: Select and quick test.\n\nPlease follow the above steps. Once completed, please share an image of the test result.`)"><i class="ti ti-device-floppy"></i>6.9 SSD/HDD</button>
+        <button class="substep" onclick="copy(`Please follow these steps for Port:\n\nStep 1: Unit should be in shutdown state.\nStep 2: Press the power button and press the 'esc' key repeatedly.\nStep 3: Once you are in the Boot menu, Press F2 to enter UEFI.\nStep 4: Select COMPONENT TEST and select PORT.\nStep 5: Select and quick test.\n\nPlease follow the above steps. Once completed, please share an image of the test result.`)"><i class="ti ti-usb"></i>6.10 Port</button>
+        <button class="substep" onclick="copy(`Please follow these steps for Webcam:\n\nStep 1: Unit should be in shutdown state.\nStep 2: Press the power button and press the 'esc' key repeatedly.\nStep 3: Once you are in the Boot menu, Press F2 to enter UEFI.\nStep 4: Select COMPONENT TEST and select webcam.\nStep 5: Select and quick test.\n\nPlease follow the above steps. Once completed, please share an image of the test result.`)"><i class="ti ti-camera"></i>6.11 Webcam</button>
+        <button class="substep" onclick="copy(`Please follow these steps for Fan:\n\nStep 1: Unit should be in shutdown state.\nStep 2: Press the power button and press the 'esc' key repeatedly.\nStep 3: Once you are in the Boot menu, Press F2 to enter UEFI.\nStep 4: Select COMPONENT TEST and select Fan.\nStep 5: Select and quick test.\n\nPlease follow the above steps. Once completed, please share an image of the test result.`)"><i class="ti ti-wind"></i>6.12 Fan</button>
+        <button class="substep" onclick="copy(`Please follow these steps for FingerPrint Module:\n\nStep 1: Unit should be in shutdown state.\nStep 2: Press the power button and press the 'esc' key repeatedly.\nStep 3: Once you are in the Boot menu, Press F2 to enter UEFI.\nStep 4: Select COMPONENT TEST and select Fingerprint.\nStep 5: Select and quick test.\n\nPlease follow the above steps. Once completed, please share an image of the test result.`)"><i class="ti ti-fingerprint"></i>6.13 Fingerprint</button>
+    </div>
+
+    <!-- Device Manager dropdown -->
+    <div class="btn-dropdown-wrap">
+        <button class="btn-dropdown" onclick="toggleDropdown('devmgr', this)">
+            <i class="ti ti-device-laptop icon"></i>
+            <span class="btn-num-dark">07</span> Device Manager
+            <i class="ti ti-chevron-down chevron"></i>
+        </button>
+    </div>
+    <div id="devmgr" class="substeps" style="grid-column:1/-1">
+        <button class="substep" onclick="copy(`Please follow the below steps to refresh the battery drivers:\n\nStep 1: Open Device Manager.\nStep 2: Expand the 'Batteries' category.\nStep 3: Right-click on each device listed under Batteries.\nStep 4: Select 'Uninstall device' from the context menu.\nStep 5: After uninstalling both drivers, restart your PC.`)"><i class="ti ti-battery"></i>7.1 Batteries</button>
+        <button class="substep" onclick="copy(`Please follow the below steps to refresh the speaker drivers.\n\nStep 1: Open Device Manager.\nStep 2: Expand the Audio inputs and outputs category.\nStep 3: Right-click on Speaker.\nStep 4: Select Uninstall device.\nStep 5: After uninstalling the driver, restart your PC.\nStep 6: Check if the Speaker is working properly after the restart.`)"><i class="ti ti-volume"></i>7.2 Speaker</button>
+        <button class="substep" onclick="copy(`Please follow the below steps to refresh the microphone drivers.\n\nStep 1: Open Device Manager.\nStep 2: Expand the Audio inputs and outputs category.\nStep 3: Right-click on Microphone.\nStep 4: Select Uninstall device.\nStep 5: After uninstalling the driver, restart your PC.\nStep 6: Check if the Mic is working properly after the restart.`)"><i class="ti ti-microphone"></i>7.3 Microphone</button>
+        <button class="substep" onclick="copy(`Please follow the below steps to refresh the fingerprint drivers.\n\nStep 1: Open Device Manager.\nStep 2: Expand the 'Biometric devices' category.\nStep 3: Right-click on the driver listed under 'Biometric devices'.\nStep 4: Select 'Uninstall device'.\nStep 5: After uninstalling the driver, restart your PC.\nStep 6: Check if the fingerprint sensor is working properly after the restart.`)"><i class="ti ti-fingerprint"></i>7.4 Fingerprint</button>
+        <button class="substep" onclick="copy(`Please follow the below steps to refresh the bluetooth drivers.\n\nStep 1: Open Device Manager.\nStep 2: Expand the 'Bluetooth' category.\nStep 3: Right-click on the driver listed under 'Bluetooth'.\nStep 4: Select 'Uninstall device'.\nStep 5: After uninstalling the driver, restart your PC.\nStep 6: Check if Bluetooth is working properly after the restart.`)"><i class="ti ti-bluetooth"></i>7.5 Bluetooth</button>
+        <button class="substep" onclick="copy(`Please follow the below steps to refresh the camera drivers.\n\nStep 1: Open Device Manager.\nStep 2: Expand the Camera category.\nStep 3: Right-click on the Driver listed under Camera.\nStep 4: Select Uninstall device.\nStep 5: After uninstalling the driver, restart your PC.\nStep 6: Check if the Camera is working properly after the restart.`)"><i class="ti ti-camera"></i>7.6 Camera</button>
+        <button class="substep" onclick="copy(`Please follow the below steps to refresh the graphics drivers.\n\nStep 1: Open Device Manager.\nStep 2: Expand the Display adaptors category.\nStep 3: Right-click on the Driver listed under Display adaptors.\nStep 4: Select Uninstall device.\nStep 5: After uninstalling the driver, restart your PC.\nStep 6: Check if the Display is working properly after the restart.`)"><i class="ti ti-screen-share"></i>7.7 Graphic Drivers</button>
+        <button class="substep" onclick="copy(`Please follow the below steps to refresh the keyboard drivers.\n\nStep 1: Open Device Manager.\nStep 2: Expand the Keyboards category.\nStep 3: Right-click on the Driver listed under Keyboards.\nStep 4: Select Uninstall device.\nStep 5: After uninstalling the driver, restart your PC.\nStep 6: Check if the Keyboard is working properly after the restart.`)"><i class="ti ti-keyboard"></i>7.8 Keyboard</button>
+        <button class="substep" onclick="copy(`Please follow the below steps to refresh the touchpad drivers.\n\nStep 1: Open Device Manager.\nStep 2: Expand the Mice and other pointing devices category.\nStep 3: Right-click on the Driver listed under Mice and other pointing devices.\nStep 4: Select Uninstall device.\nStep 5: After uninstalling the driver, restart your PC.\nStep 6: Check if the Touchpad is working properly after the restart.`)"><i class="ti ti-pointer"></i>7.9 Touchpad</button>
+        <button class="substep" onclick="copy(`Please follow the below steps to refresh the wifi drivers.\n\nStep 1: Open Device Manager.\nStep 2: Expand the Network adapters category.\nStep 3: Right-click on the first Driver listed under Network adapters.\nStep 4: Select Uninstall device.\nStep 5: After uninstalling the driver, restart your PC.\nStep 6: Check if the Wifi is working properly after the restart.`)"><i class="ti ti-wifi"></i>7.10 Wi-Fi</button>
+        <button class="substep" onclick="copy(`Please follow the below steps to reinstall the USB-C drivers through Device Manager:\n\n1. Right-click on the Start menu and open Device Manager.\n2. Expand Universal Serial Bus controllers.\n3. Look for any USB Root Hub, USB Host Controller, or USB-C related device entries.\n4. Right-click each related USB device and select Uninstall device.\n5. Once completed, restart the laptop.\n\nAfter restart, Windows will automatically reinstall the required USB drivers. Please check the USB-C port functionality again afterward.`)"><i class="ti ti-usb"></i>7.11 USB-C</button>
+    </div>
+
+    <div class="section-label">Software & updates</div>
+
+    <button class="btn-main" onclick="copy(`Open HP Support Assistant:\n\n- Press Windows and type HP Support Assistant, then open the app.\n\n- Check for Updates:\n  1. On the My Dashboard tab, find your device and click Updates.\n     (if no updates are seen please select the refresh icon on the top and see for updates.)\n  2. Click Check for updates and messages.\n\n- Install Updates:\n  1. Review the available updates (drivers, BIOS, etc.).\n  2. Select the ones you need and click Install.\n\n- Restart:\n  If prompted, restart your PC to complete the installation.`)">
+        <i class="ti ti-refresh"></i><span class="btn-num">08</span> HPSA Updates
+    </button>
+
+    <button class="btn-main" onclick="copy(`Please perform the below steps to perform pending windows updates.\n\n* Open Settings on your computer.\n* Navigate to Update & Security.\n* Select Windows Update from the left-hand menu.\n* Click on Check for updates and install all available updates.\n* Once the updates are installed, restart your computer to complete the process.`)">
+        <i class="ti ti-brand-windows"></i><span class="btn-num">09</span> Windows Updates
+    </button>
+
+    <!-- Windows Reset dropdown -->
+    <div class="btn-dropdown-wrap">
+        <button class="btn-dropdown" onclick="toggleDropdown('winreset', this)">
+            <i class="ti ti-restore icon"></i>
+            <span class="btn-num-dark">10</span> Windows Reset
+            <i class="ti ti-chevron-down chevron"></i>
+        </button>
+    </div>
+    <div id="winreset" class="substeps" style="grid-column:1/-1">
+        <button class="substep" onclick="copy(`Please follow the below steps to reset the Windows.\n\n1. Type and search Reset this PC in the Windows search bar, then click Open.\n2. In the Reset this PC menu, click Reset PC.\n3. Select Keep my files.\n4. Choose Local reinstall.\n5. Click Change settings.\n6. Set the option Restore apps and settings which came with this PC to Yes, then select Confirm.\n7. Confirm that the settings are correct, then click Next.\n8. You may receive a notification; select Next to continue the reset process.\n9. Select Reset.`)"><i class="ti ti-settings"></i>10.1 Reset from Settings</button>
+        <button class="substep" onclick="copy(`Please use the below steps to reset the windows from BIOS.\n\n1. Shutdown the computer\n2. Press the power button once again and immediately tap ESC key multiple times. Thereafter you will see the Start-up Options, press F11\n3. On the Choose an option screen, click Troubleshoot.\n4. Select Reset PC.\n5. Select Remove everything.\n6. Select Local reinstall.\n7. Then select Next.\n8. Click on Reset to start the process.`)"><i class="ti ti-cpu"></i>10.2 Reset from BIOS</button>
+    </div>
+
+    <!-- OS Re-installation dropdown -->
+    <div class="btn-dropdown-wrap">
+        <button class="btn-dropdown" onclick="toggleDropdown('osreinstall', this)">
+            <i class="ti ti-download icon"></i>
+            <span class="btn-num-dark">11</span> OS Re-installation
+            <i class="ti ti-chevron-down chevron"></i>
+        </button>
+    </div>
+    <div id="osreinstall" class="substeps" style="grid-column:1/-1">
+        <button class="substep" onclick="copy(`Requirements:\n\n- 16 GB pen drive.\n- Working computer.\n- Backup your data before proceeding.`)"><i class="ti ti-list-check"></i>11.1 Requirements</button>
+        <button class="substep" onclick="copy(`Steps to reinstall Windows using the Microsoft Media Creation Tool should be performed on another working computer.\n\nPlease find the link for the Microsoft Creation Tool:\nhttps://www.microsoft.com/en-us/software-download/windows11/\n\nFollow the instructions under the section 'Using the tool to create installation media'.\n\n1. Open the above link.\n2. Select 'Download tool now', and then select 'Run'. You must be an administrator to run this tool.\n3. If you agree to the license terms, select 'Accept'.\n4. On the 'What do you want to do?' page, select 'Create installation media for another PC', then click 'Next'.\n5. Select the latest available Windows version.\n6. Choose the media you want to use:\n   - USB flash drive: Attach a blank USB flash drive with at least 8 GB of space. Any content on the drive will be deleted.\n7. After the installation media is created, follow the on-screen instructions to complete the process.\n\nPlease let me know once the above steps are completed.`)"><i class="ti ti-usb"></i>11.2 Media Creation Tool — Part 1</button>
+        <button class="substep" onclick="copy(`Now take the flash drive/pen drive/hard disk and plug it into the computer where you want to reinstall the OS. Then follow the steps below:\n\n1. Insert the USB boot device you created, and then turn off the computer.\n2. Turn on the computer and immediately press the Esc key repeatedly (about once every second) until the Startup Menu opens.\n3. Press the F9 key to open Boot Device Options.\n4. Use the arrow keys to select the USB drive, and then press Enter.\n5. When prompted to run Recovery Manager from the hard drive or from media, select 'Run program from media', and click Next.\n6. Select a language, and then click OK.\n7. Select 'Factory Reset', and then click Next.\n8. On the Welcome screen, click Next.\n9. Select 'Recover without backing up your files', and then click Next.\n10. Wait while HP Recovery Manager prepares the system and copies the files to the hard drive.\n11. Click Skip when asked if you received a supplemental recovery USB drive from HP Support.\n12. Click Continue once recovery preparation is complete.\n13. Do not remove the USB drive or power off the PC during the process.\n14. After recovery is complete, click Finish to restart the system.\n15. You can remove the USB flash drive once the initial setup begins.`)"><i class="ti ti-device-laptop"></i>11.3 Media Creation Tool — Part 2</button>
+    </div>
+
+    <!-- Cloud Recovery dropdown -->
+    <div class="btn-dropdown-wrap">
+        <button class="btn-dropdown" onclick="toggleDropdown('cloudrecovery', this)">
+            <i class="ti ti-cloud-download icon"></i>
+            <span class="btn-num-dark">12</span> Cloud Recovery
+            <i class="ti ti-chevron-down chevron"></i>
+        </button>
+    </div>
+    <div id="cloudrecovery" class="substeps" style="grid-column:1/-1">
+        <button class="substep" onclick="copy(`Please ensure to take a data backup with the help of any known local data backup service centers before we proceed with OS re-installation as HP does not support in that field due to privacy.\n\nFor Consumer PC: Kindly follow the steps as per below link\nhttps://support.hp.com/us-en/document/ish_4511095-4511141-16`)"><i class="ti ti-home"></i>12.1 Consumer</button>
+        <button class="substep" onclick="copy(`Please ensure to take a data backup with the help of any known local data backup service centers before we proceed with OS re-installation as HP does not support in that field due to privacy.\n\nFor Commercial PC: Kindly follow the steps as per below link\nhttps://support.hp.com/us-en/document/ish_4374279-4216685-16`)"><i class="ti ti-building"></i>12.2 Commercial</button>
+    </div>
+
+    <div class="section-label">Diagnostics & tools</div>
+
+    <button class="btn-main" onclick="copy(`Battery calibration:\nRefer to https://www.youtube.com/watch?v=OBJxM5HQFs0 for steps.`)">
+        <i class="ti ti-battery-charging"></i><span class="btn-num">13</span> Battery Calibration
+    </button>
+
+    <button class="btn-main" onclick="copy(`Steps to extract the IDR logs:\n\n1. Download the Image Diagnostics tool from the below link:\n   https://ftp.hp.com/pub/idr/ImageDiags4/ImageDiags.exe\n\n2. Run the downloaded ImageDiags.exe file as Administrator.\n\n3. Follow the on-screen instructions to generate the IDR logs.\n\n4. Once completed, the logs will be saved automatically on the system.\n\n5. Please share the generated log files with us for further analysis.`)">
+        <i class="ti ti-file-analytics"></i><span class="btn-num">14</span> IDR Logs
+    </button>
+
+    <button class="btn-main" onclick="copy(`HP support website:-\n\nStep 1:- Open https://support.hp.com/gb-en\nStep 2:- Scroll a bit down to see a search bar to enter the serial no\nStep 3:- select software drivers\nStep 4:- Enter your device serial no and hit enter\n\nIf you are asked to select OS and version\nSearch for winver in windows search bar\nand you will get pop up with the details and enter the same\n\nStep 5:- select the option software & drivers and select xxx and select xxx\nStep 6:- download the version for your unit with the latest date\nStep 7:- once downloaded open install run and restart your computer`)">
+        <i class="ti ti-world"></i><span class="btn-num">15</span> HP Support Page
+    </button>
+
+    <button class="btn-main" onclick="copy(`Please follow the below steps to Generate battery health report:\n\n- Open command prompt as admin.\n- Run: powercfg /batteryreport\n- Report saved at C:\\WINDOWS\\system32\\battery-report.html\n\nOnce the file is generated please do share it with us, via email.`)">
+        <i class="ti ti-report"></i><span class="btn-num">16</span> Battery Health Report
+    </button>
+
+    <button class="btn-main" onclick="copy(`Please follow these steps to get the recovery key:\n\nStep 1- Open https://aka.ms/myrecoverykey web address.\nStep 2- You can enter your registered email address and login\nStep 3- Make a note of the 48 digit recovery key listed there and enter into the pop up box which is requesting for the key.\nStep 4- Restart the machine if required.`)">
+        <i class="ti ti-key"></i><span class="btn-num">17</span> Recovery Key
+    </button>
+
+    <button class="btn-main" onclick="copy(`Please perform the BIOS defaults as mentioned in the below video.\n\nhttps://www.youtube.com/watch?v=6woHPW-GB-E`)">
+        <i class="ti ti-settings-2"></i><span class="btn-num">18</span> BIOS Defaults
+    </button>
+
+    <button class="btn-main" onclick="copy(`Please follow the below steps to boot into safe mode.\n\nSAFE MODE:-\n1. Press Win + I to open Settings.\n2. Go to System > Recovery.\n3. Click Restart now under Advanced startup.\n4. After restart, select Troubleshoot.\n5. Choose Advanced options.\n6. Click Startup Settings.\n7. Click Restart.\n8. Press 4 or F4 for Safe Mode or 5 or F5 for Safe Mode with Networking.`)">
+        <i class="ti ti-shield-lock"></i><span class="btn-num">19</span> Safe Mode
+    </button>
+
+    <button class="btn-main" onclick="copy('HP Image Assistant (HPIA)\n\nKindly download and open, then click on Analyze. If you notice any software updates are available, kindly download them, install, and restart the unit.\n\nhttps://hpia.hpcloud.hp.com/downloads/hpia/hp-hpia-5.2.0.exe\n\nThis is the link for HP Image Assistant.')">
+        <i class="ti ti-search"></i><span class="btn-num">20</span> HPIA
+    </button>
+
+    <button class="btn-main" onclick="copy('BitLocker Key Backup\n\nPlease ensure your BitLocker recovery key is backed up.\nYou can save it to your Microsoft account, a USB drive, or print it for safekeeping.\nThis is important before any repair or system changes.')">
+        <i class="ti ti-lock"></i><span class="btn-num">21</span> BitLocker Key Backup
+    </button>
+
+    <button class="btn-main" onclick="copy('Forgotten BIOS Password\n\nPlease follow the document below:\nhttps://support.hp.com/in-en/document/ish_9535708-9536016-16\n\nNote: A forgotten BIOS password may lead to a system board replacement on a chargeable basis.')">
+        <i class="ti ti-lock-question"></i><span class="btn-num">22</span> Forgotten BIOS Password
+    </button>
+
+    <button class="btn-main" onclick="copy('USB Tethering (Android)\n\nConnect your phone to the computer using a USB cable.\nGo to Settings > Network & internet > Hotspot & tethering.\nEnable USB tethering.\n\nOnce enabled, please check if the laptop has internet access.')">
+        <i class="ti ti-phone-check"></i><span class="btn-num">23</span> USB Tethering (Android)
+    </button>
+
+</div>
+
+<!-- Toast notification -->
+<div id="toast"><i class="ti ti-check"></i> Copied to clipboard</div>
+
+<script>
+    function copy(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            const t = document.getElementById('toast');
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2000);
+        }).catch(err => console.error('Copy failed:', err));
+    }
+
+    function toggleDropdown(id, btn) {
+        const panel = document.getElementById(id);
+        const isOpen = panel.classList.contains('open');
+        // close all
+        document.querySelectorAll('.substeps').forEach(p => p.classList.remove('open'));
+        document.querySelectorAll('.btn-dropdown').forEach(b => b.classList.remove('open'));
+        if (!isOpen) {
+            panel.classList.add('open');
+            btn.classList.add('open');
+        }
+    }
+</script>
+</body>
+</html>

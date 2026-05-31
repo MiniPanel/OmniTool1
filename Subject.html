@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Subject</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f4f4f7;
+      padding: 16px 18px 40px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e0e0e8;
+    }
+
+    .page-header i { font-size: 15px; color: #a78bfa; }
+
+    .page-header h1 {
+      font-size: 12px;
+      font-weight: 600;
+      color: #111118;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #e0e0e8;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .section {
+      padding: 8px 14px;
+      border-bottom: 1px solid #f0f0f5;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section:last-of-type { border-bottom: none; }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #999;
+      white-space: nowrap;
+      width: 90px;
+      flex-shrink: 0;
+    }
+
+    .text-input {
+      flex: 1;
+      border: 1px solid #e0e0e8;
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-family: inherit;
+      color: #111118;
+      background: #fafafa;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .text-input:focus {
+      border-color: #a78bfa;
+      box-shadow: 0 0 0 2px rgba(167,139,250,0.18);
+      background: #fff;
+    }
+
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      flex: 1;
+    }
+
+    .pill-group input[type="radio"] { display: none; }
+
+    .pill-group label {
+      padding: 3px 10px;
+      border-radius: 5px;
+      border: 1px solid #e0e0e8;
+      font-size: 11px;
+      font-weight: 600;
+      color: #555;
+      cursor: pointer;
+      background: #fafafa;
+      transition: background 0.12s, border-color 0.12s, color 0.12s;
+      user-select: none;
+    }
+
+    .pill-group input[type="radio"]:checked + label {
+      background: linear-gradient(135deg, #EF4765, #FF9A5A);
+      border-color: transparent;
+      color: #fff;
+    }
+
+    .pill-group label:hover { border-color: #c0b0f8; color: #333; }
+
+    .btn-generate {
+      background: linear-gradient(135deg, #EF4765, #FF9A5A);
+      border: none;
+      border-radius: 7px;
+      color: #fff;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      padding: 8px 20px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: opacity 0.15s, box-shadow 0.15s;
+      flex-shrink: 0;
+    }
+
+    .btn-generate:hover {
+      opacity: 0.92;
+      box-shadow: 0 2px 12px rgba(239,71,101,0.35);
+    }
+
+    .output-box {
+      display: none;
+      flex: 1;
+      background: #f4f4f7;
+      border: 1px solid #e0e0e8;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #111118;
+      word-break: break-all;
+    }
+
+    .output-box.visible { display: block; }
+
+    #toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #111118;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 9px 16px;
+      border-radius: 7px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.2s, transform 0.2s;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 999;
+    }
+
+    #toast.show { opacity: 1; transform: translateY(0); }
+    #toast i { color: #4ade80; font-size: 14px; }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <i class="ti ti-tag"></i>
+  <h1>Case Subject</h1>
+</div>
+
+<div class="card">
+
+  <div class="section">
+    <div class="section-label">Model Name</div>
+    <input type="text" id="model" class="text-input" placeholder="Enter model name">
+  </div>
+
+  <div class="section">
+    <div class="section-label">Issue</div>
+    <input type="text" id="issue" class="text-input" placeholder="Enter issue details">
+  </div>
+
+  <div class="section">
+    <div class="section-label">Country</div>
+    <div class="pill-group">
+      <input type="radio" name="country" id="c-AU" value="AU" checked><label for="c-AU">AU</label>
+      <input type="radio" name="country" id="c-NZ" value="NZ"><label for="c-NZ">NZ</label>
+      <input type="radio" name="country" id="c-SG" value="SG"><label for="c-SG">SG</label>
+      <input type="radio" name="country" id="c-MY" value="MY"><label for="c-MY">MY</label>
+      <input type="radio" name="country" id="c-PH" value="PH"><label for="c-PH">PH</label>
+      <input type="radio" name="country" id="c-Island" value="Island"><label for="c-Island">Island</label>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Coverage Type</div>
+    <div class="pill-group">
+      <input type="radio" name="coverageType" id="ct-WARR" value="WARR" checked><label for="ct-WARR">WARR</label>
+      <input type="radio" name="coverageType" id="ct-CNBD" value="CNBD"><label for="ct-CNBD">CNBD</label>
+      <input type="radio" name="coverageType" id="ct-Q3BD" value="Q3BD"><label for="ct-Q3BD">Q3BD</label>
+      <input type="radio" name="coverageType" id="ct-QNBD" value="QNBD"><label for="ct-QNBD">QNBD</label>
+      <input type="radio" name="coverageType" id="ct-QSBD" value="QSBD"><label for="ct-QSBD">QSBD</label>
+      <input type="radio" name="coverageType" id="ct-CSBD" value="CSBD"><label for="ct-CSBD">CSBD</label>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Special</div>
+    <div class="pill-group">
+      <input type="radio" name="special" id="s-none" value="" checked><label for="s-none">None</label>
+      <input type="radio" name="special" id="s-DMR" value="DMR"><label for="s-DMR">DMR</label>
+      <input type="radio" name="special" id="s-ADP" value="ADP"><label for="s-ADP">ADP</label>
+      <input type="radio" name="special" id="s-DOA" value="DOA"><label for="s-DOA">DOA</label>
+      <input type="radio" name="special" id="s-TRADE" value="TRADE"><label for="s-TRADE">TRADE</label>
+      <input type="radio" name="special" id="s-ACG" value="ACG"><label for="s-ACG">ACG</label>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Coverage</div>
+    <div class="pill-group">
+      <input type="radio" name="coverage" id="cv-NBD" value="NBD" checked><label for="cv-NBD">NBD</label>
+      <input type="radio" name="coverage" id="cv-SBD" value="SBD"><label for="cv-SBD">SBD</label>
+      <input type="radio" name="coverage" id="cv-2BD" value="2BD"><label for="cv-2BD">2BD</label>
+      <input type="radio" name="coverage" id="cv-3BD" value="3BD"><label for="cv-3BD">3BD</label>
+      <input type="radio" name="coverage" id="cv-NSR" value="NSR"><label for="cv-NSR">NSR</label>
+      <input type="radio" name="coverage" id="cv-4HR" value="4HR"><label for="cv-4HR">4HR</label>
+      <input type="radio" name="coverage" id="cv-8HR" value="8HR"><label for="cv-8HR">8HR</label>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Service Type</div>
+    <div class="pill-group">
+      <input type="radio" name="service" id="sv-ONS" value="ONS" checked><label for="sv-ONS">ONS</label>
+      <input type="radio" name="service" id="sv-PURR" value="PURR"><label for="sv-PURR">PURR</label>
+      <input type="radio" name="service" id="sv-CSR" value="CSR"><label for="sv-CSR">CSR</label>
+      <input type="radio" name="service" id="sv-RCD" value="RCD"><label for="sv-RCD">RCD</label>
+      <input type="radio" name="service" id="sv-OOW" value="OOW"><label for="sv-OOW">OOW</label>
+      <input type="radio" name="service" id="sv-CARRYIN" value="CARRY IN"><label for="sv-CARRYIN">CARRY IN</label>
+      <input type="radio" name="service" id="sv-CA" value="CA"><label for="sv-CA">CA</label>
+      <input type="radio" name="service" id="sv-Depot" value="Depot Repair"><label for="sv-Depot">Depot Repair</label>
+    </div>
+  </div>
+
+  <div class="section">
+    <button class="btn-generate" onclick="generateConfig()">
+      <i class="ti ti-copy"></i> Generate &amp; Copy
+    </button>
+    <div class="output-box" id="output"></div>
+  </div>
+
+</div>
+
+<div id="toast"><i class="ti ti-check"></i> Copied to clipboard</div>
+
+<script>
+  function getRadioValue(name) {
+    for (let r of document.getElementsByName(name)) {
+      if (r.checked) return r.value;
+    }
+    return '';
+  }
+
+  function generateConfig() {
+    const model        = document.getElementById('model').value.trim();
+    const issue        = document.getElementById('issue').value.trim();
+    const country      = getRadioValue('country');
+    const coverageType = getRadioValue('coverageType');
+    const special      = getRadioValue('special');
+    const coverage     = getRadioValue('coverage');
+    const service      = getRadioValue('service');
+
+    let config = `${country} / ${coverageType} / ${coverage} / ${service}`;
+    if (special) config += ` / ${special}`;
+    config += ` / ${model} / ${issue}`;
+
+    const output = document.getElementById('output');
+    output.textContent = config;
+    output.classList.add('visible');
+
+    navigator.clipboard.writeText(config).then(() => {
+      const t = document.getElementById('toast');
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2000);
+    });
+  }
+</script>
+
+</body>
+</html>

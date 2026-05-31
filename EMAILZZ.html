@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Templates</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #f4f4f7;
+            padding: 20px 24px 40px;
+            color: #111118;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid #e0e0e8;
+        }
+
+        .page-header i {
+            font-size: 18px;
+            color: #a78bfa;
+        }
+
+        .page-header h1 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111118;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        /* Template button grid */
+        .btn-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+            gap: 7px;
+            margin-bottom: 18px;
+        }
+
+        .template-btn {
+            background: linear-gradient(135deg, #EF4765, #FF9A5A);
+            border: none;
+            border-radius: 7px;
+            color: #fff;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 11.5px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            padding: 9px 12px;
+            text-align: left;
+            transition: opacity 0.15s, box-shadow 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            width: 100%;
+            line-height: 1.3;
+        }
+
+        .template-btn:hover {
+            opacity: 0.9;
+            box-shadow: 0 2px 12px rgba(239, 71, 101, 0.35);
+        }
+
+        .template-btn.active {
+            outline: 2px solid #fff;
+            outline-offset: -3px;
+            opacity: 1;
+            box-shadow: 0 2px 14px rgba(239, 71, 101, 0.45);
+        }
+
+        .template-btn i {
+            font-size: 13px;
+            flex-shrink: 0;
+            opacity: 0.85;
+        }
+
+        /* Composer card */
+        .composer {
+            background: #fff;
+            border: 1px solid #e0e0e8;
+            border-radius: 10px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .composer.visible {
+            display: block;
+        }
+
+        .composer-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 11px 16px;
+            border-bottom: 1px solid #e0e0e8;
+            background: #fafafa;
+        }
+
+        .composer-title {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #111118;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .composer-title i {
+            color: #a78bfa;
+            font-size: 14px;
+        }
+
+        /* Action bar inside composer header */
+        .action-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .case-id-label {
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #666;
+            white-space: nowrap;
+        }
+
+        .case-id-input {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 5px 10px;
+            font-size: 12px;
+            font-family: inherit;
+            outline: none;
+            min-width: 150px;
+            background: #fff;
+            color: #111118;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        .case-id-input:focus {
+            border-color: #a78bfa;
+            box-shadow: 0 0 0 2px rgba(167,139,250,0.18);
+        }
+
+        /* Send / region buttons */
+        .action-btn {
+            background: linear-gradient(135deg, #EF4765, #FF9A5A);
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 11.5px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            padding: 6px 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: opacity 0.15s, box-shadow 0.15s;
+            white-space: nowrap;
+        }
+
+        .action-btn:hover {
+            opacity: 0.88;
+            box-shadow: 0 2px 10px rgba(239,71,101,0.3);
+        }
+
+        .action-btn i { font-size: 12px; }
+
+        /* Copy button */
+        .copy-btn {
+            background: #fff;
+            border: 1px solid #e0e0e8;
+            border-radius: 6px;
+            color: #111118;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 6px 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.12s, border-color 0.12s;
+        }
+
+        .copy-btn:hover {
+            background: #f0f0f5;
+            border-color: #c8c8d8;
+        }
+
+        .copy-btn i { font-size: 12px; color: #a78bfa; }
+
+        /* Textarea */
+        .composer-body {
+            padding: 0;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 320px;
+            padding: 16px;
+            border: none;
+            outline: none;
+            font-size: 12.5px;
+            line-height: 1.7;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            color: #111118;
+            background: #fff;
+            resize: vertical;
+            display: block;
+        }
+
+        /* Toast */
+        #toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #111118;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 9px 16px;
+            border-radius: 7px;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.2s, transform 0.2s;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 999;
+        }
+
+        #toast.show { opacity: 1; transform: translateY(0); }
+        #toast i { color: #4ade80; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<div class="page-header">
+    <i class="ti ti-mail"></i>
+    <h1>Email Templates</h1>
+</div>
+
+<div class="btn-grid">
+    <button class="template-btn" data-template="partAvailability"><i class="ti ti-package"></i>Part Availability</button>
+    <button class="template-btn" data-template="catalogError"><i class="ti ti-alert-circle"></i>Catalog Error</button>
+    <button class="template-btn" data-template="warrantyUpdate"><i class="ti ti-shield-check"></i>Warranty Update</button>
+    <button class="template-btn" data-template="carepackUpdate"><i class="ti ti-shield-plus"></i>Carepack Update</button>
+    <button class="template-btn" data-template="EMT"><i class="ti ti-clipboard-list"></i>EMT</button>
+    <button class="template-btn" data-template="RPLMismatch"><i class="ti ti-alert-triangle"></i>RPL Mismatch</button>
+    <button class="template-btn" data-template="warrantyUpdated"><i class="ti ti-shield-check"></i>Warranty Updated</button>
+    <button class="template-btn" data-template="statusCheck"><i class="ti ti-clock"></i>Status Check</button>
+    <button class="template-btn" data-template="caseFollowUp"><i class="ti ti-message-circle"></i>Case Follow Up</button>
+    <button class="template-btn" data-template="caseFollowUp2"><i class="ti ti-message-circle-2"></i>Case Follow Up 2</button>
+    <button class="template-btn" data-template="quoteSnooze"><i class="ti ti-clock-pause"></i>Quote Snooze</button>
+    <button class="template-btn" data-template="helpDeskCU"><i class="ti ti-headset"></i>Help Desk CU</button>
+    <button class="template-btn" data-template="Qtemp"><i class="ti ti-file-invoice"></i>Quote Template</button>
+    <button class="template-btn" data-template="DOA"><i class="ti ti-file-alert"></i>DOA</button>
+</div>
+
+<!-- Composer card -->
+<div class="composer" id="composer">
+    <div class="composer-header">
+        <div class="composer-title">
+            <i class="ti ti-mail-forward" id="composerIcon"></i>
+            <span id="composerTitle">Template</span>
+        </div>
+        <div class="action-bar" id="actionBar"></div>
+    </div>
+    <div class="composer-body">
+        <textarea id="emailContent" placeholder="Select a template above to load its content…"></textarea>
+    </div>
+</div>
+
+<div id="toast"><i class="ti ti-check"></i> Copied to clipboard</div>
+
+<script>
+    const CC = "hpspacpschat@hp.com";
+
+    const templateMeta = {
+        partAvailability: { label: "Part Availability", icon: "ti-package" },
+        catalogError:     { label: "Catalog Error",     icon: "ti-alert-circle" },
+        warrantyUpdate:   { label: "Warranty Update",   icon: "ti-shield-check" },
+        carepackUpdate:   { label: "Carepack Update",   icon: "ti-shield-plus" },
+        EMT:              { label: "EMT",               icon: "ti-clipboard-list" },
+        RPLMismatch:      { label: "RPL Mismatch",      icon: "ti-alert-triangle" },
+        warrantyUpdated:  { label: "Warranty Updated",  icon: "ti-shield-check" },
+        statusCheck:      { label: "Status Check",      icon: "ti-clock" },
+        caseFollowUp:     { label: "Case Follow Up",    icon: "ti-message-circle" },
+        caseFollowUp2:    { label: "Case Follow Up 2",  icon: "ti-message-circle-2" },
+        quoteSnooze:      { label: "Quote Snooze",      icon: "ti-clock-pause" },
+        helpDeskCU:       { label: "Help Desk CU",      icon: "ti-headset" },
+        Qtemp:            { label: "Quote Template",    icon: "ti-file-invoice" },
+        DOA:              { label: "DOA",               icon: "ti-file-alert" },
+    };
+
+    const emailTemplates = {
+        partAvailability: {
+            body: `Hi leads,\n\nRequesting your assistance in checking the Part Availability for Below details\n\nProduct Number:\nSerial Number:\nBase country:\nCurrent Country:\nPart required:\nPart number:\nPart description:\nReason:`,
+            actions: [
+                { label: "SEA", icon: "ti-send", to: "ssc.sea.dbo@hp.com", cc: CC },
+                { label: "ANZ", icon: "ti-send", to: "SthPacPlanningPPS@hp.com", cc: CC }
+            ],
+            caseId: true, copyBtn: false
+        },
+        catalogError: {
+            body: `Hi Leads,\n\nRequesting your assistance with the Catalog error.\n\nPFA screenshot and Details below\n\n1. Case ID:\n2. Product #:\n3. Serial #:\n4. MO # (just in case it was created):\n5. Part #:\n6. Product:\n7. HWPC Code:\n8. IW/OOW: OOW\n9. Order country or sales org:`,
+            actions: [{ label: "Send", icon: "ti-send", to: "sneha.k@hp.com;yuvetha.balakrishnan@hp.com;revathi.s.kumar@hp.com;sumitb@hp.com", cc: CC }],
+            caseId: true, copyBtn: false
+        },
+        warrantyUpdate: {
+            body: `Hi Leads,\n\nI'm reaching out to request your assistance with updating the warranty information for the referenced case. Please find the relevant invoice attached for your review and processing.\n\nDOP as per Invoice:\n\nThank you for your prompt attention to this matter.`,
+            actions: [{ label: "Send", icon: "ti-send", to: "sneha.k@hp.com;yuvetha.balakrishnan@hp.com;revathi.s.kumar@hp.com;sumitb@hp.com", cc: CC }],
+            caseId: true, copyBtn: false
+        },
+        carepackUpdate: {
+            body: `Hi Team,\n\nI'm reaching out to request your assistance with updating the Carepack information for the referenced case. Please find the relevant invoice attached for your review and Serial Number below.\n\nSerial Number:\n\nThank you for your prompt attention to this matter.`,
+            actions: [{ label: "Send", icon: "ti-send", to: "sneha.k@hp.com;yuvetha.balakrishnan@hp.com;revathi.s.kumar@hp.com;sumitb@hp.com", cc: CC }],
+            caseId: true, copyBtn: false
+        },
+        EMT: {
+            body: `Hi Team,\n\nGreetings for the day!\n\n1. Customer Name:\n2. Customer Phone number:\n3. Customer Email address:\n4. Agent Email address:\n5. Mentor Email address:\n6. Country:\n\nProduct Information\n\n1. Model:\n2. Serial Number:\n3. Product Number:\n4. Docking station/Port replicator Model:\n5. Total Install base:\n6. Bios version:\n7. Operating System and Image Source:\n8. Number of units affected:\n9. Service Pack:\n10. Memory specs:\n11. AC adapter details:\n12. If Ext monitor/projector related mention make and model:\n13. Will the customer send unit for capture if needed:\n14. If driver related pls mention driver version:\n15. If software related pls mention software make and version:\n\nIssue Description:\nTroubleshooting steps to replicate issue (as provided by the end user):\n\nKindly advise.`,
+            actions: [{ label: "Send", icon: "ti-send", to: "hpcustomersupportcdcbapjemt@hp.com", cc: CC }],
+            caseId: true, copyBtn: false
+        },
+        RPLMismatch: {
+            body: `Dear Team,\n\nI hope this email finds you well.\n\nI am writing in reference to the subject case, which involves an RPL data mismatch. Furthermore, the product in question is unable to pass the GT check.\n\nThe details for your reference are as follows:\n\nCase Number:\nSerial Number:\nProduct Number:\nCountry:\nFull name of Account:\nOrganization:\n\nCould you please examine this case and provide guidance on how to proceed?\n\nWe appreciate your support and look forward to your response.`,
+            actions: [], caseId: false, copyBtn: true
+        },
+        warrantyUpdated: {
+            body: `Dear CX Name,\n\nI hope this email finds you well.\n\nThis email confirms that we have successfully updated the warranty for *** Model ***, with the serial number *** SN ***, as per your recent request.\n\nAs requested, we have updated the warranty information for your notebook to align with the details on the invoice you shared. You can view the corrected warranty details by following this link:\n\n**** ADD THE LINK HERE ****\n\nKindly review the updated information. If the details are not reflecting correctly or if any further corrections are required, please reply to this email, and we will be happy to assist.\n\nYour satisfaction is our priority, and we are committed to providing reliable products and dependable service.\n\nThank you for choosing HP.`,
+            actions: [], caseId: false, copyBtn: true
+        },
+        statusCheck: {
+            bodyFn: function(region) {
+                if (region === 'PH') return `Hello Leads,\n\nPlease share a quick update on the repair status for the mentioned case, along with the estimated completion time.`;
+                return `Hi Team,\n\nPlease share a quick update on the repair status for the mentioned case, along with the estimated completion time.`;
+            },
+            actions: [
+                { label: "ANZ", icon: "ti-send", to: "sp-hpcs-cm-resourceadmin@hp.com", cc: CC },
+                { label: "MY",  icon: "ti-send", to: "myonsite.resourceadmin@hp.com", cc: CC },
+                { label: "SG",  icon: "ti-send", to: "sg.resourceadmin@hp.com", cc: CC },
+                { label: "PH",  icon: "ti-send", to: "sneha.k@hp.com;yuvetha.balakrishnan@hp.com;revathi.s.kumar@hp.com;sumitb@hp.com", cc: CC }
+            ],
+            caseId: true, copyBtn: false
+        },
+        caseFollowUp: {
+            body: `Dear [Customer Name],\n\nI hope this email finds you well.\n\nWe noticed that you recently contacted our support team via WhatsApp regarding an issue with your PC, and we had created case to track your inquiry.\n\nHowever, we haven't received a response to our last message on the WhatsApp chat, and we wanted to check in on the status of your issue.\n\nCould you please let us know:\n\n- Has your PC issue been resolved?\n- Do you still require technical assistance from our team?\n\nIf you need any further support, please feel free to continue the conversation on the same WhatsApp chat where we left off. Our support team will be happy to assist you and help resolve any remaining concerns.\n\nWe value your business and want to ensure you have the best possible experience with your device.\n\nThank you for choosing HP, and we look forward to hearing from you soon.`,
+            actions: [], caseId: false, copyBtn: true
+        },
+        caseFollowUp2: {
+            body: `Dear [Customer Name],\n\nI hope you're doing well.\n\nThis is a follow-up to our previous email regarding your PC support case.\n\nWe understand that you may be busy, and we want to respect your time while ensuring you receive the assistance you need.\n\nSince we haven't heard back from you yet, we wanted to reach out once more to see if you still need assistance with your PC issue.\n\nPlease note: If we don't hear back from you within the next 24 hours, we will proceed to temporarily close this case.\n\nHowever, please don't worry - If you still need assistance with your PC issue at any time in the future, simply reach out to us and reference case number. We'll be more than happy to reopen your case and continue providing support exactly where we left off.\n\nWe truly appreciate your business and remain committed to helping you resolve any technical issues you may have.\n\nThank you for your understanding.`,
+            actions: [], caseId: false, copyBtn: true
+        },
+        quoteSnooze: {
+            body: `Dear [Customer Name],\n\nI hope this email finds you well.\n\nThis is a friendly reminder regarding the quotation we sent you for Service on your Unit.\n\nWe wanted to check if you've had a chance to review the quotation and if you need any clarification or additional information to help with your decision.\n\nQuotation expires:\n\nIf you wish to proceed, please reply with your approval.\n\nShould you have any questions about the quotation or need technical clarification, please don't hesitate to reach out to us.\n\nWe're here to help and look forward to your response.`,
+            actions: [], caseId: false, copyBtn: true
+        },
+        helpDeskCU: {
+            body: `Hi Team,\n\nI hope this email finds you well.\n\nWe have received a customer inquiry through WhatsApp Support requesting assistance. Upon reviewing their account, I have confirmed that this customer currently has active Helpdesk Support services.\n\nCustomer Details:\n\nFull Name:\nPrimary Contact Number:\nEmail Address:\nPrimary Phone:\nAlternate Phone:\nProduct Number:\nSerial Number:\nCountry:\n\nGiven their active Helpdesk support status, I kindly request that you reach out to this customer at your earliest convenience to provide the necessary assistance.\n\nThank you for your attention to this matter.`,
+            actions: [{ label: "Send", icon: "ti-send", to: "hpapjhelpdesk@hp.com", cc: CC }],
+            caseId: true, copyBtn: false
+        },
+        Qtemp: {
+            body: `Country:\nSpecial: TRADE\nCoverage: 3BD\nService Type:\n\nPart Recommended:\nPart Number:\nPart Quantity:\nDescription:\n\nParts Available:\n\nCustomer First Name and Last Name:\nCustomer Phone No:\nCustomer Email:\nCustomer Billing Address:`,
+            actions: [], caseId: false, copyBtn: true
+        },
+        DOA: {
+            body: `Issue Description:\nClaim Type:\nCustomer Name:\nCompany Name: na\nPhone Number:\nPhone No Extension (If there is no direct contact number): na\nAddress:\nEmail address:\nInvoice Attached: YES\nTAT Informed: YES\nBRT: NA`,
+            actions: [], caseId: false, copyBtn: true
+        }
+    };
+
+    let currentTemplate = null;
+    const textarea = document.getElementById('emailContent');
+    const actionBar = document.getElementById('actionBar');
+    const composer  = document.getElementById('composer');
+    const composerTitle = document.getElementById('composerTitle');
+    const composerIcon  = document.getElementById('composerIcon');
+
+    document.querySelectorAll('.template-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            document.querySelectorAll('.template-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+
+            const key = this.dataset.template;
+            currentTemplate = key;
+            const tpl = emailTemplates[key];
+            if (!tpl) return;
+
+            const meta = templateMeta[key] || {};
+            composerTitle.textContent = meta.label || key;
+            composerIcon.className = 'ti ' + (meta.icon || 'ti-mail-forward');
+
+            if (tpl.bodyFn) {
+                textarea.value = tpl.bodyFn('');
+            } else {
+                textarea.value = tpl.body;
+            }
+
+            composer.classList.add('visible');
+            renderActionBar(key, tpl);
+        });
+    });
+
+    function renderActionBar(key, tpl) {
+        actionBar.innerHTML = '';
+
+        if (tpl.caseId) {
+            const label = document.createElement('span');
+            label.className = 'case-id-label';
+            label.textContent = 'Case ID:';
+            actionBar.appendChild(label);
+
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'case-id-input';
+            input.id = 'caseIdInput';
+            input.placeholder = 'e.g. 5066xxxxxx';
+            actionBar.appendChild(input);
+        }
+
+        tpl.actions.forEach(action => {
+            const btn = document.createElement('button');
+            btn.className = 'action-btn';
+            btn.innerHTML = `<i class="ti ${action.icon || 'ti-send'}"></i>${action.label}`;
+            btn.addEventListener('click', function () {
+                if (key === 'statusCheck' && tpl.bodyFn) {
+                    textarea.value = tpl.bodyFn(action.label);
+                }
+                sendViaOutlook(action.to, action.cc, action.label);
+            });
+            actionBar.appendChild(btn);
+        });
+
+        if (tpl.copyBtn) {
+            const btn = document.createElement('button');
+            btn.className = 'copy-btn';
+            btn.innerHTML = `<i class="ti ti-copy"></i> Copy`;
+            btn.addEventListener('click', copyToClipboard);
+            actionBar.appendChild(btn);
+        }
+    }
+
+    function sendViaOutlook(to, cc, regionLabel) {
+        const caseIdInput = document.getElementById('caseIdInput');
+        const caseId = caseIdInput ? caseIdInput.value.trim() : '';
+        const subject = caseId || '(No Case ID entered)';
+        const body = textarea.value;
+        const encodedTo = encodeURIComponent(to).replace(/%3B/gi, ';');
+        const encodedCc = encodeURIComponent(cc);
+        const encodedSubject = encodeURIComponent(subject);
+        const encodedBody = encodeURIComponent(body);
+        window.location.href = `mailto:${encodedTo}?cc=${encodedCc}&subject=${encodedSubject}&body=${encodedBody}`;
+    }
+
+    function copyToClipboard() {
+        if (!textarea.value.trim()) {
+            return;
+        }
+        navigator.clipboard.writeText(textarea.value).then(() => {
+            showToast();
+        }).catch(() => {
+            textarea.select();
+            document.execCommand('copy');
+            showToast();
+        });
+    }
+
+    function showToast() {
+        const t = document.getElementById('toast');
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2000);
+    }
+</script>
+</body>
+</html>
