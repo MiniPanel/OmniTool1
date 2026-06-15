@@ -309,9 +309,10 @@
 
     const emailTemplates = {
         partAvailability: {
-            body: `Hi leads,\n\nRequesting your assistance in checking the Part Availability for Below details\n\nProduct Number:\nSerial Number:\nBase country:\nCurrent Country:\nPart required:\nPart number:\nPart description:\nReason:`,
+            body: `Hi Team,\n\nRequesting your assistance in checking the Part Availability for Below details\n\nProduct Number:\nSerial Number:\nBase country:\nCurrent Country:\nPart required:\nPart number:\nPart description:\nReason:`,
             actions: [
-                { label: "SEA", icon: "ti-send", to: "ssc.sea.dbo@hp.com", cc: CC },
+                { label: "MY", icon: "ti-send", to: "ssc.sea.dbo@hp.com", cc: CC },
+                { label: "SG", icon: "ti-send", to: "apjsscsgmarketslogistics@hp.com", cc: CC }
                 { label: "ANZ", icon: "ti-send", to: "SthPacPlanningPPS@hp.com", cc: CC }
             ],
             caseId: true, copyBtn: false
