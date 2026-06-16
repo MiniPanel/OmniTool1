@@ -37,7 +37,6 @@
             text-transform: uppercase;
         }
 
-        /* Template button grid */
         .btn-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
@@ -83,7 +82,6 @@
             opacity: 0.85;
         }
 
-        /* Composer card */
         .composer {
             background: #fff;
             border: 1px solid #e0e0e8;
@@ -119,7 +117,6 @@
             font-size: 14px;
         }
 
-        /* Action bar inside composer header */
         .action-bar {
             display: flex;
             align-items: center;
@@ -152,7 +149,6 @@
             box-shadow: 0 0 0 2px rgba(167,139,250,0.18);
         }
 
-        /* Send / region buttons */
         .action-btn {
             background: linear-gradient(135deg, #EF4765, #FF9A5A);
             border: none;
@@ -178,7 +174,6 @@
 
         .action-btn i { font-size: 12px; }
 
-        /* Copy button */
         .copy-btn {
             background: #fff;
             border: 1px solid #e0e0e8;
@@ -202,7 +197,6 @@
 
         .copy-btn i { font-size: 12px; color: #a78bfa; }
 
-        /* Textarea */
         .composer-body {
             padding: 0;
         }
@@ -222,7 +216,6 @@
             display: block;
         }
 
-        /* Toast */
         #toast {
             position: fixed;
             bottom: 20px;
@@ -269,11 +262,9 @@
     <button class="template-btn" data-template="helpDeskCU"><i class="ti ti-headset"></i>Help Desk CU</button>
     <button class="template-btn" data-template="Qtemp"><i class="ti ti-file-invoice"></i>Quote Template</button>
     <button class="template-btn" data-template="DOA"><i class="ti ti-file-alert"></i>DOA</button>
-   <button class="template-btn" data-template="POLYL15"><i class="ti ti-file-alert"></i>POLY L-1.5 Template
-</button>
+    <button class="template-btn" data-template="POLYL15"><i class="ti ti-file-alert"></i>POLY L-1.5 Template</button>
 </div>
 
-<!-- Composer card -->
 <div class="composer" id="composer">
     <div class="composer-header">
         <div class="composer-title">
@@ -293,31 +284,30 @@
     const CC = "hpspacpschat@hp.com";
 
     const templateMeta = {
-        partAvailability: { label: "Part Availability", icon: "ti-package" },
-        catalogError:     { label: "Catalog Error",     icon: "ti-alert-circle" },
-        warrantyUpdate:   { label: "Warranty Update",   icon: "ti-shield-check" },
-        carepackUpdate:   { label: "Carepack Update",   icon: "ti-shield-plus" },
-        EMT:              { label: "EMT",               icon: "ti-clipboard-list" },
-        RPLMismatch:      { label: "RPL Mismatch",      icon: "ti-alert-triangle" },
-        warrantyUpdated:  { label: "Warranty Updated",  icon: "ti-shield-check" },
-        statusCheck:      { label: "Status Check",      icon: "ti-clock" },
-        caseFollowUp:     { label: "Case Follow Up",    icon: "ti-message-circle" },
-        caseFollowUp2:    { label: "Case Follow Up 2",  icon: "ti-message-circle-2" },
-        quoteSnooze:      { label: "Quote Snooze",      icon: "ti-clock-pause" },
-        helpDeskCU:       { label: "Help Desk CU",      icon: "ti-headset" },
-        Qtemp:            { label: "Quote Template",    icon: "ti-file-invoice" },
-        DOA:              { label: "DOA",               icon: "ti-file-alert" },
-        POLYL15:         { label: "POLY L-15 Template",    icon: "ti-file-alert"
-},
+        partAvailability: { label: "Part Availability",   icon: "ti-package" },
+        catalogError:     { label: "Catalog Error",       icon: "ti-alert-circle" },
+        warrantyUpdate:   { label: "Warranty Update",     icon: "ti-shield-check" },
+        carepackUpdate:   { label: "Carepack Update",     icon: "ti-shield-plus" },
+        EMT:              { label: "EMT",                 icon: "ti-clipboard-list" },
+        RPLMismatch:      { label: "RPL Mismatch",        icon: "ti-alert-triangle" },
+        warrantyUpdated:  { label: "Warranty Updated",    icon: "ti-shield-check" },
+        statusCheck:      { label: "Status Check",        icon: "ti-clock" },
+        caseFollowUp:     { label: "Case Follow Up",      icon: "ti-message-circle" },
+        caseFollowUp2:    { label: "Case Follow Up 2",    icon: "ti-message-circle-2" },
+        quoteSnooze:      { label: "Quote Snooze",        icon: "ti-clock-pause" },
+        helpDeskCU:       { label: "Help Desk CU",        icon: "ti-headset" },
+        Qtemp:            { label: "Quote Template",      icon: "ti-file-invoice" },
+        DOA:              { label: "DOA",                 icon: "ti-file-alert" },
+        POLYL15:          { label: "POLY L-1.5 Template", icon: "ti-file-alert" },
     };
 
     const emailTemplates = {
         partAvailability: {
             body: `Hi Team,\n\nRequesting your assistance in checking the Part Availability for Below details\n\nProduct Number:\nSerial Number:\nBase country:\nCurrent Country:\nPart required:\nPart number:\nPart description:\nReason:`,
             actions: [
-                { label: "MY", icon: "ti-send", to: "ssc.sea.dbo@hp.com", cc: CC },
-                { label: "SG", icon: "ti-send", to: "apjsscsgmarketslogistics@hp.com", cc: CC },
-                { label: "ANZ", icon: "ti-send", to: "SthPacPlanningPPS@hp.com", cc: CC }
+                { label: "MY",  icon: "ti-send", to: "ssc.sea.dbo@hp.com",                cc: CC },
+                { label: "SG",  icon: "ti-send", to: "apjsscsgmarketslogistics@hp.com",   cc: CC },
+                { label: "ANZ", icon: "ti-send", to: "SthPacPlanningPPS@hp.com",           cc: CC }
             ],
             caseId: true, copyBtn: false
         },
@@ -355,10 +345,10 @@
                 return `Hi Team,\n\nPlease share a quick update on the repair status for the mentioned case, along with the estimated completion time.`;
             },
             actions: [
-                { label: "ANZ", icon: "ti-send", to: "sp-hpcs-cm-resourceadmin@hp.com", cc: CC },
-                { label: "MY",  icon: "ti-send", to: "myonsite.resourceadmin@hp.com", cc: CC },
-                { label: "SG",  icon: "ti-send", to: "sg.resourceadmin@hp.com", cc: CC },
-                { label: "PH",  icon: "ti-send", to: "sneha.k@hp.com;yuvetha.balakrishnan@hp.com;revathi.s.kumar@hp.com;sumitb@hp.com", cc: CC }
+                { label: "ANZ", icon: "ti-send", to: "sp-hpcs-cm-resourceadmin@hp.com",                                                        cc: CC },
+                { label: "MY",  icon: "ti-send", to: "myonsite.resourceadmin@hp.com",                                                           cc: CC },
+                { label: "SG",  icon: "ti-send", to: "sg.resourceadmin@hp.com",                                                                 cc: CC },
+                { label: "PH",  icon: "ti-send", to: "sneha.k@hp.com;yuvetha.balakrishnan@hp.com;revathi.s.kumar@hp.com;sumitb@hp.com",         cc: CC }
             ],
             caseId: true, copyBtn: false
         },
@@ -388,42 +378,17 @@
             actions: [], caseId: false, copyBtn: true
         },
         POLYL15: {
-    body: `Asset/Product Details
-• Serial Number, Product Number, Product Description:-
-
-Case Details
-• Case Subject or the Case Title:-
-• Issue Summary (As reported by Customer):-
-• Problem Description (Short Version):-
-• Troubleshooting (Steps with Results):-
-
-Important Information
-• Poly Lens Software Version:-
-• Firmware Version of the Headset/Dongle/Camera:-
-• System, Device, and Event Log Information:-
-• Volume / Quantity of Products:-
-• Environment – Place of Product Usage / Setup:-
-• Windows Version and Build Code:-
-• Softphone in Use and Version:-
-
-Contact Details
-• Company Name and Customer Name:-
-• Primary Contact Number & Alternate Contact Number:-
-• Email Address:-
-• Best Time To Reach:-`,
-    actions: [],
-    caseId: false,
-    copyBtn: true
-}
-        
+            body: `Asset/Product Details\n• Serial Number, Product Number, Product Description:-\n\nCase Details\n• Case Subject or the Case Title:-\n• Issue Summary (As reported by Customer):-\n• Problem Description (Short Version):-\n• Troubleshooting (Steps with Results):-\n\nImportant Information\n• Poly Lens Software Version:-\n• Firmware Version of the Headset/Dongle/Camera:-\n• System, Device, and Event Log Information:-\n• Volume / Quantity of Products:-\n• Environment – Place of Product Usage / Setup:-\n• Windows Version and Build Code:-\n• Softphone in Use and Version:-\n\nContact Details\n• Company Name and Customer Name:-\n• Primary Contact Number & Alternate Contact Number:-\n• Email Address:-\n• Best Time To Reach:-`,
+            actions: [], caseId: false, copyBtn: true
+        }
     };
 
     let currentTemplate = null;
-    const textarea = document.getElementById('emailContent');
-    const actionBar = document.getElementById('actionBar');
-    const composer  = document.getElementById('composer');
-    const composerTitle = document.getElementById('composerTitle');
-    const composerIcon  = document.getElementById('composerIcon');
+    const textarea       = document.getElementById('emailContent');
+    const actionBar      = document.getElementById('actionBar');
+    const composer       = document.getElementById('composer');
+    const composerTitle  = document.getElementById('composerTitle');
+    const composerIcon   = document.getElementById('composerIcon');
 
     document.querySelectorAll('.template-btn').forEach(button => {
         button.addEventListener('click', function () {
@@ -439,11 +404,7 @@ Contact Details
             composerTitle.textContent = meta.label || key;
             composerIcon.className = 'ti ' + (meta.icon || 'ti-mail-forward');
 
-            if (tpl.bodyFn) {
-                textarea.value = tpl.bodyFn('');
-            } else {
-                textarea.value = tpl.body;
-            }
+            textarea.value = tpl.bodyFn ? tpl.bodyFn('') : tpl.body;
 
             composer.classList.add('visible');
             renderActionBar(key, tpl);
@@ -475,7 +436,7 @@ Contact Details
                 if (key === 'statusCheck' && tpl.bodyFn) {
                     textarea.value = tpl.bodyFn(action.label);
                 }
-                sendViaOutlook(action.to, action.cc, action.label);
+                sendViaOutlook(action.to, action.cc);
             });
             actionBar.appendChild(btn);
         });
@@ -489,25 +450,19 @@ Contact Details
         }
     }
 
-    function sendViaOutlook(to, cc, regionLabel) {
+    function sendViaOutlook(to, cc) {
         const caseIdInput = document.getElementById('caseIdInput');
-        const caseId = caseIdInput ? caseIdInput.value.trim() : '';
-        const subject = caseId || '(No Case ID entered)';
-        const body = textarea.value;
-        const encodedTo = encodeURIComponent(to).replace(/%3B/gi, ';');
-        const encodedCc = encodeURIComponent(cc);
-        const encodedSubject = encodeURIComponent(subject);
-        const encodedBody = encodeURIComponent(body);
-        window.location.href = `mailto:${encodedTo}?cc=${encodedCc}&subject=${encodedSubject}&body=${encodedBody}`;
+        const caseId      = caseIdInput ? caseIdInput.value.trim() : '';
+        const subject     = caseId || '(No Case ID entered)';
+        const body        = textarea.value;
+        const encodedTo   = encodeURIComponent(to).replace(/%3B/gi, ';');
+        const encodedCc   = encodeURIComponent(cc);
+        window.location.href = `mailto:${encodedTo}?cc=${encodedCc}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     }
 
     function copyToClipboard() {
-        if (!textarea.value.trim()) {
-            return;
-        }
-        navigator.clipboard.writeText(textarea.value).then(() => {
-            showToast();
-        }).catch(() => {
+        if (!textarea.value.trim()) return;
+        navigator.clipboard.writeText(textarea.value).then(showToast).catch(() => {
             textarea.select();
             document.execCommand('copy');
             showToast();
