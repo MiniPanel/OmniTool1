@@ -269,6 +269,8 @@
     <button class="template-btn" data-template="helpDeskCU"><i class="ti ti-headset"></i>Help Desk CU</button>
     <button class="template-btn" data-template="Qtemp"><i class="ti ti-file-invoice"></i>Quote Template</button>
     <button class="template-btn" data-template="DOA"><i class="ti ti-file-alert"></i>DOA</button>
+   <button class="template-btn" data-template="POLYL1.5"><i class="ti ti-file-alert"></i>POLY L-1.5 Template
+</button>
 </div>
 
 <!-- Composer card -->
@@ -305,6 +307,8 @@
         helpDeskCU:       { label: "Help Desk CU",      icon: "ti-headset" },
         Qtemp:            { label: "Quote Template",    icon: "ti-file-invoice" },
         DOA:              { label: "DOA",               icon: "ti-file-alert" },
+        POLYL1.5:         { label: "POLY L-1.5 Template",    icon: "ti-file-alert"
+},
     };
 
     const emailTemplates = {
@@ -382,7 +386,36 @@
         DOA: {
             body: `Issue Description:\nClaim Type:\nCustomer Name:\nCompany Name: na\nPhone Number:\nPhone No Extension (If there is no direct contact number): na\nAddress:\nEmail address:\nInvoice Attached: YES\nTAT Informed: YES\nBRT: NA`,
             actions: [], caseId: false, copyBtn: true
-        }
+        },
+        POLYL1.5: {
+    body: `Asset/Product Details
+• Serial Number, Product Number, Product Description:-
+
+Case Details
+• Case Subject or the Case Title:-
+• Issue Summary (As reported by Customer):-
+• Problem Description (Short Version):-
+• Troubleshooting (Steps with Results):-
+
+Important Information
+• Poly Lens Software Version:-
+• Firmware Version of the Headset/Dongle/Camera:-
+• System, Device, and Event Log Information:-
+• Volume / Quantity of Products:-
+• Environment – Place of Product Usage / Setup:-
+• Windows Version and Build Code:-
+• Softphone in Use and Version:-
+
+Contact Details
+• Company Name and Customer Name:-
+• Primary Contact Number & Alternate Contact Number:-
+• Email Address:-
+• Best Time To Reach:-`,
+    actions: [],
+    caseId: false,
+    copyBtn: true
+}
+        
     };
 
     let currentTemplate = null;
