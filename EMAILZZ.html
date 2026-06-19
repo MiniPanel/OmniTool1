@@ -249,17 +249,17 @@
 
 <div class="btn-grid">
     <button class="template-btn" data-template="partAvailability"><i class="ti ti-package"></i>Part Availability</button>
+    <button class="template-btn" data-template="statusCheck"><i class="ti ti-clock"></i>Status Check</button>
+    <button class="template-btn" data-template="EMT"><i class="ti ti-clipboard-list"></i>EMT</button>
     <button class="template-btn" data-template="catalogError"><i class="ti ti-alert-circle"></i>Catalog Error</button>
     <button class="template-btn" data-template="warrantyUpdate"><i class="ti ti-shield-check"></i>Warranty Update</button>
     <button class="template-btn" data-template="carepackUpdate"><i class="ti ti-shield-plus"></i>Carepack Update</button>
-    <button class="template-btn" data-template="EMT"><i class="ti ti-clipboard-list"></i>EMT</button>
+    <button class="template-btn" data-template="helpDeskCU"><i class="ti ti-headset"></i>Help Desk CU</button>
     <button class="template-btn" data-template="RPLMismatch"><i class="ti ti-alert-triangle"></i>RPL Mismatch</button>
     <button class="template-btn" data-template="warrantyUpdated"><i class="ti ti-shield-check"></i>Warranty Updated</button>
-    <button class="template-btn" data-template="statusCheck"><i class="ti ti-clock"></i>Status Check</button>
     <button class="template-btn" data-template="caseFollowUp"><i class="ti ti-message-circle"></i>Case Follow Up</button>
     <button class="template-btn" data-template="caseFollowUp2"><i class="ti ti-message-circle-2"></i>Case Follow Up 2</button>
     <button class="template-btn" data-template="quoteSnooze"><i class="ti ti-clock-pause"></i>Quote Snooze</button>
-    <button class="template-btn" data-template="helpDeskCU"><i class="ti ti-headset"></i>Help Desk CU</button>
     <button class="template-btn" data-template="Qtemp"><i class="ti ti-file-invoice"></i>Quote Template</button>
     <button class="template-btn" data-template="DOA"><i class="ti ti-file-alert"></i>DOA</button>
     <button class="template-btn" data-template="POLYL15"><i class="ti ti-file-alert"></i>POLY L-1.5 Template</button>
@@ -436,7 +436,7 @@
                 if (key === 'statusCheck' && tpl.bodyFn) {
                     textarea.value = tpl.bodyFn(action.label);
                 }
-                sendViaOutlook(action.to, action.cc);
+                sendViaOutlook(action.to, action.cc, action.label);
             });
             actionBar.appendChild(btn);
         });
@@ -450,10 +450,19 @@
         }
     }
 
-    function sendViaOutlook(to, cc) {
+    function sendViaOutlook(to, cc, regionLabel) {
         const caseIdInput = document.getElementById('caseIdInput');
         const caseId      = caseIdInput ? caseIdInput.value.trim() : '';
-        const subject     = caseId || '(No Case ID entered)';
+        const meta        = templateMeta[currentTemplate] || {};
+        const templateName = meta.label || currentTemplate;
+
+        let subject;
+        if (caseId) {
+            subject = `${caseId} || ${templateName}`;
+        } else {
+            subject = templateName;
+        }
+
         const body        = textarea.value;
         const encodedTo   = encodeURIComponent(to).replace(/%3B/gi, ';');
         const encodedCc   = encodeURIComponent(cc);
