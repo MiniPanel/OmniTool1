@@ -262,6 +262,8 @@
     <button class="template-btn" data-template="quoteSnooze"><i class="ti ti-clock-pause"></i>Quote Snooze</button>
     <button class="template-btn" data-template="Qtemp"><i class="ti ti-file-invoice"></i>Quote Template</button>
     <button class="template-btn" data-template="DOA"><i class="ti ti-file-alert"></i>DOA</button>
+    <button class="template-btn" data-template="polyRA"><i class="ti ti-headset"></i>Poly RA
+</button>
 </div>
 
 <div class="composer" id="composer">
@@ -297,6 +299,7 @@
         helpDeskCU:       { label: "Help Desk CU",        icon: "ti-headset" },
         Qtemp:            { label: "Quote Template",      icon: "ti-file-invoice" },
         DOA:              { label: "DOA",                 icon: "ti-file-alert" },
+        polyRA:           { label: "Poly RA",             icon: "ti-headset"},
     };
 
     const emailTemplates = {
@@ -374,7 +377,40 @@
         DOA: {
             body: `Issue Description:\nClaim Type:\nCustomer Name:\nCompany Name: na\nPhone Number:\nPhone No Extension (If there is no direct contact number): na\nAddress:\nEmail address:\nInvoice Attached: YES\nTAT Informed: YES\nBRT: NA`,
             actions: [], caseId: false, copyBtn: true
+        },
+
+        polyRA: {
+    body: `Hi Team,
+
+Customer has reached out to WhatsApp support seeking an update on the delivery of the headset. Please reach out to customer with an update on priority.
+
+MO-:
+SO-:
+
+Regards,`,
+    actions: [
+        {
+            label: "APJ",
+            icon: "ti-send",
+            to: "polyapj.om@hp.com",
+            cc: "chethan.m.nataraju@hp.com;hpspacpschat@hp.com"
+        },
+        {
+            label: "EMEA",
+            icon: "ti-send",
+            to: "EMEAServiceLogistics@hp.com;service.emea@hp.com",
+            cc: "hpspacpschat@hp.com"
+        },
+        {
+            label: "AMS",
+            icon: "ti-send",
+            to: "AMSPolyServiceLogistics@hp.com",
+            cc: "balaji.madhavan.p.s@hp.com;hpspacpschat@hp.com"
         }
+    ],
+    caseId: false,
+    copyBtn: false
+},
     };
 
     let currentTemplate = null;
